@@ -3,6 +3,12 @@ import Image from "next/image";
 import Script from "next/script";
 import Link from "next/link";
 
+const menuNavbar = [
+  { url: "/", menuTitle: "Home" },
+  { url: "/example/example", menuTitle: "Example" },
+  { url: "/dashboard", menuTitle: "Dashboard" },
+];
+
 export default function Navbar() {
   return (
     <div>
@@ -14,7 +20,7 @@ export default function Navbar() {
       <header className="p-3 mb-3 border-bottom">
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <Link href="/about">
+            <Link href="/">
               <a>
                 <span>
                   <svg
@@ -37,25 +43,44 @@ export default function Navbar() {
             </Link>
 
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li>
-                <a href="#" className="nav-link px-2 link-dark">
-                  Menu1
+              {menuNavbar.map((menu) => {
+                return (
+                  <li key={menu.url}>
+                    <Link href={menu.url}>
+                      <a className="nav-link px-2 link-dark">
+                        {menu.menuTitle}
+                      </a>
+                    </Link>
+                  </li>
+                );
+              })}
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link px-2 link-dark dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
                 </a>
-              </li>
-              <li>
-                <a href="#" className="nav-link px-2 link-dark">
-                  Menu2
-                </a>
-              </li>
-              <li>
-                <a href="#" className="nav-link px-2 link-dark">
-                  Menu3
-                </a>
-              </li>
-              <li>
-                <a href="#" className="nav-link px-2 link-dark">
-                  Menu4
-                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
 
@@ -107,9 +132,9 @@ export default function Navbar() {
                   <hr className="dropdown-divider"></hr>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Sign out
-                  </a>
+                  <Link href="/user/logout">
+                    <a className="dropdown-item">Sign out</a>
+                  </Link>
                 </li>
               </ul>
             </div>
