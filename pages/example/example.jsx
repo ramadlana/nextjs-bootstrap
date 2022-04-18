@@ -1,6 +1,7 @@
-import Navbar from "../../components/navbar";
-import Modal from "../../components/modal";
-import Table from "../../components/table";
+import Navbar from "../../components/Navbar";
+import Modal from "../../components/Modal";
+import TableCommon from "../../components/common/Table";
+
 export default function Example() {
   return (
     <div>
@@ -11,7 +12,7 @@ export default function Example() {
 
         <h4 className="mt-3 mb-3">Table</h4>
         <hr className="mt-2 mb-3" />
-        <Table></Table>
+        <TableCommon></TableCommon>
       </div>
     </div>
   );

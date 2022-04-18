@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
 const axios = require("axios");
 import Router from "next/router";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/Navbar";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { clearCache } from "swr";
 
 export default function Login() {
   const [apiReturn, setapiReturn] = useState(null);

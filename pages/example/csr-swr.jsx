@@ -1,9 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import FetchJsonPlaceHolder from "../components/Dashboard/FetchJsonPlaceHolderUser";
-import Datatables from "../components/Dashboard/Datatables";
-import TableCommon from "../components/common/Table";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -12,7 +9,7 @@ const fetcherAxios = async (...args) =>
     .then((res) => res)
     .catch((err) => (err.response ? err.response : err));
 
-export default function Dashboard({ cookies }) {
+export default function Dashboard() {
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
@@ -83,22 +80,11 @@ export default function Dashboard({ cookies }) {
       <div>
         <Navbar />
         <div className="container">
-          <h1>Dashboard</h1>
+          <h1>Client Sides Render using SWR</h1>
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
-          <h4>Datatables Components (data from Fetch URL)</h4>
-          <Datatables></Datatables>
-          <h4>Fetch From outside URL Components</h4>
-          <FetchJsonPlaceHolder></FetchJsonPlaceHolder>
-          <TableCommon></TableCommon>
         </div>
       </div>
     );
 }
-
-// export async function getServerSideProps(context) {
-//   return {
-//     props: { cookies: context.req.cookies.access_token | null }, // will be passed to the page component as props
-//   };
-// }

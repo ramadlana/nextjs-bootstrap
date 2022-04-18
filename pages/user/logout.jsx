@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/Navbar";
 
 const fetcherAxios = async (...args) =>
   axios
