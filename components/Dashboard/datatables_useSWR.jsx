@@ -12,7 +12,7 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 //   Export Page
-export default function FetchJsonPlaceHolderUser() {
+export default function DatatablesUseSWR() {
   //   use data + error because used fetch
   const { data, error } = useSWR(
     [

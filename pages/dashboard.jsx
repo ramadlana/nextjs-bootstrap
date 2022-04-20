@@ -1,9 +1,9 @@
 import useSWR from "swr";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import FetchJsonPlaceHolder from "../components/Dashboard/FetchJsonPlaceHolderUser";
-import Datatables from "../components/Dashboard/Datatables";
-import TableCommon from "../components/common/Table";
+
+import DatatablesUseeffect from "../components/Dashboard/datatables_useeffect";
+import DatatablesUseSWR from "../components/Dashboard/datatables_useSWR";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -87,11 +87,12 @@ export default function Dashboard({ cookies }) {
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
-          <h4>Datatables Components (data from Fetch URL)</h4>
-          <Datatables></Datatables>
-          <h4>Fetch From outside URL Components</h4>
-          <FetchJsonPlaceHolder></FetchJsonPlaceHolder>
-          <TableCommon></TableCommon>
+          <h4>Datatables Components</h4>
+          <h6>Load using useEffect</h6>
+          <DatatablesUseeffect></DatatablesUseeffect>
+          <h4>Datatables Components</h4>
+          <h6>Load using useSWR - AXIOS</h6>
+          <DatatablesUseSWR></DatatablesUseSWR>
         </div>
       </div>
     );

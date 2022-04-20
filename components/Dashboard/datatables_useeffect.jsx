@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../state/allState";
 import _ from "lodash";
 
-export default function Profile() {
+export default function DatatablesUseeffect() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
