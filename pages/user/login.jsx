@@ -16,7 +16,7 @@ export default function Login() {
   const clickHandler = async () => {
     setLoading(true);
     try {
-      const { data } = await axios({
+      const resp = await axios({
         method: "POST",
         url: `${process.env.BACKEND_SERVER}/sign/in`,
         headers: {
@@ -29,12 +29,17 @@ export default function Login() {
         withCredentials: "true",
       });
       setLoading(false);
-      toast.success(data.message);
+      toast.success(resp.data.message);
 
       Router.replace("/dashboard");
     } catch (err) {
       setLoading(false);
-      toast.error(err.response.data.message);
+      console.log(err.response);
+      toast.error(
+        err.response.data.message
+          ? err.response.data.message
+          : "error when authenticating to server"
+      );
     }
   };
 

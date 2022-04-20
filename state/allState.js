@@ -1,11 +1,8 @@
 import { atom, selector } from "recoil";
-import { recoilPersist } from "recoil-persist";
-const { persistAtom } = recoilPersist();
 
 const userState = atom({
   key: "userState",
   default: [],
-  effects_UNSTABLE: [persistAtom],
 });
 
 const nameState = atom({
@@ -16,7 +13,6 @@ const nameState = atom({
 const exampleState = atom({
   key: "exampleState",
   default: [],
-  effects_UNSTABLE: [persistAtom],
 });
 
 const listNameState = atom({
@@ -38,6 +34,5 @@ const listNameState = atom({
       desc: "",
     },
   ],
-  effects_UNSTABLE: [persistAtom],
 });
 export { nameState, listNameState, exampleState, userState };

@@ -96,9 +96,3 @@ export default function Dashboard({ cookies }) {
       </div>
     );
 }
-
-// export async function getServerSideProps(context) {
-//   return {
-//     props: { cookies: context.req.cookies.access_token | null }, // will be passed to the page component as props
-//   };
-// }
