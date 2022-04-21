@@ -2,35 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import Link from "next/link";
 
-// Default tableconf state
-const defaultTableConf = {
-  searchBy: "",
-  searchString: "",
-  sort: { sortBy: "firstName", sortMode: "ASC" },
-  page: 1,
-  maxPerpage: 10,
-  tableHead: [
-    { headTitle: "ID", headKey: "id" },
-    { headTitle: "Name", headKey: "name" },
-    { headTitle: "Address", headKey: "address" },
-    { headTitle: "Country", headKey: "country.country" },
-  ],
-};
-
 export default function TableAllUsers() {
+  // Default tableconf state
+  const defaultTableConf = {
+    searchBy: "",
+    searchString: "",
+    sort: { sortBy: "firstName", sortMode: "ASC" },
+    page: 1,
+    maxPerpage: 10,
+    dataCount: 120,
+    tableHead: [
+      { headTitle: "ID", headKey: "id" },
+      { headTitle: "Name", headKey: "name" },
+      { headTitle: "Address", headKey: "address" },
+      { headTitle: "Country", headKey: "country.country" },
+    ],
+  };
+
+  // State
   const [isLoading, setLoading] = useState(false);
   const [tableRows, setTableRows] = useState();
   const [err, setErr] = useState(false);
   const [tableConf, setTableConf] = useState(defaultTableConf);
 
-  // Reference Column
+  // Reff
   const searchInputRef = useRef();
 
   // Use Effect - Load data when page Load
   useEffect(() => {
     setLoading(true);
     fetch(
-      "http://localhost:8000/dashboard/alluser-pagination?page=1&maxPerpage=10",
+      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}`,
       { credentials: "include" }
     )
       .then((res) => res.json())
@@ -48,7 +50,7 @@ export default function TableAllUsers() {
   function getData(route_params) {
     setLoading(true);
     fetch(
-      `http://localhost:8000/dashboard/alluser-pagination?${route_params}`,
+      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?${route_params}`,
       { credentials: "include" }
     )
       .then((res) => res.json())
@@ -62,7 +64,7 @@ export default function TableAllUsers() {
       });
   }
 
-  // Handle Pagination, call get data and pass route parameter after '?' as argument
+  // Handle Pagination (NEXT PREV), call get data and pass route parameter after '?' as argument
   function handlePagination(direction) {
     let copyTableConf = { ...tableConf };
     if (copyTableConf.page >= 1 && direction === "next")
@@ -70,18 +72,34 @@ export default function TableAllUsers() {
     if (copyTableConf.page > 1 && direction === "prev") copyTableConf.page -= 1;
     setTableConf(copyTableConf);
     getData(
-      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=address&searchString=${copyTableConf.searchString}`
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
+    );
+  }
+  // Handle Pagination (NumberClick)
+  function handlePaginationNumber(num) {
+    let copyTableConf = { ...tableConf };
+    copyTableConf.page = num;
+    setTableConf(copyTableConf);
+    getData(
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
     );
   }
 
-  // Handle Search Input
+  // Handle Search By Option
+  function handleSearchBy(searchBy) {
+    let copyTableConf = { ...tableConf };
+    copyTableConf.searchBy = searchBy;
+    setTableConf(copyTableConf);
+  }
+
+  // Handle Search Input Text
   function handleSearchInput(searchString) {
     let copyTableConf = { ...tableConf };
     copyTableConf.page = 1;
     copyTableConf.searchString = searchString;
     setTableConf(copyTableConf);
     getData(
-      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=address&searchString=${copyTableConf.searchString}`
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
     );
     console.log(searchString);
   }
@@ -109,7 +127,7 @@ export default function TableAllUsers() {
           <div className="spinner-border text-primary" role="status">
             <span className="sr-only"></span>
           </div>
-          <p>Loading Data</p>
+          <p>Loading Table Data</p>
         </div>
       );
     }
@@ -127,10 +145,20 @@ export default function TableAllUsers() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Search By
+          Search By {tableConf.searchBy}
         </button>
         <ul className="dropdown-menu">
-          <li></li>
+          {tableConf.tableHead.map((head) => (
+            <li key={head.headKey}>
+              <a
+                className="dropdown-item"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleSearchBy(head.headKey)}
+              >
+                {head.headTitle}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* Search Input */}
@@ -144,19 +172,22 @@ export default function TableAllUsers() {
       </div>
       {/* End Of Search Bar */}
 
+      {/* Render Loading Spinner */}
       {renderLoading()}
       <table className="table table-hover">
+        {/* Table Head */}
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Country</th>
+            {tableConf.tableHead.map((head) => (
+              <th key={head.headKey}>{head.headTitle}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
+          {/* Table Rows */}
           {tableRows.map((item) => (
             <tr key={item.id}>
+              {/* Computed and need further process Table Data */}
               <td>
                 <Link href={`/tableuser/${item.id}`}>
                   <a>
@@ -166,6 +197,7 @@ export default function TableAllUsers() {
                   </a>
                 </Link>
               </td>
+              {/* Regular Table Data */}
               <td>{item.name}</td>
               <td>{item.address}</td>
               <td>{item.country.country}</td>
@@ -186,6 +218,22 @@ export default function TableAllUsers() {
               Previous
             </a>
           </li>
+          {/* Get Automated Number data count DB / Max per page */}
+          {[
+            ...Array(Math.ceil(tableConf.dataCount / tableConf.maxPerpage)),
+          ].map((key, value) => {
+            return (
+              <li key={value} className="page-item">
+                <a
+                  className="page-link"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handlePaginationNumber(value + 1)}
+                >
+                  {value + 1}
+                </a>
+              </li>
+            );
+          })}
           <li className="page-item">
             <a
               className="page-link"

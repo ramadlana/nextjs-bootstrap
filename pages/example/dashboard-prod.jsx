@@ -33,15 +33,13 @@ export default function DashboardProd({ cookies }) {
     return (
       <>
         <Navbar></Navbar>
-        <div className="m-3">
-          <button className="btn btn-primary" type="button" disabled>
-            <span
-              className="spinner-border spinner-border-sm mx-3 "
-              role="status"
-              aria-hidden="true"
-            />
-            Loading...
-          </button>
+        <div className="container">
+          <div className="text-center">
+            <div className="spinner-border text-primary" role="status">
+              <span className="sr-only"></span>
+            </div>
+            <p>Loading Page</p>
+          </div>
         </div>
       </>
     );
@@ -85,7 +83,8 @@ export default function DashboardProd({ cookies }) {
       <div>
         <NavbarMember></NavbarMember>
         <div className="container">
-          <h1>Dashboard</h1>
+          <h2>Dashboard</h2>
+          <h6>Data table - Pagination - Searching</h6>
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>

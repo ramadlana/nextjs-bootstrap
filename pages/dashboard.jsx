@@ -51,6 +51,7 @@ export default function Dashboard({ cookies }) {
   if (data.status === 401)
     return (
       <>
+        <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
             You dont have permission to access this page: {data.data.message}
