@@ -7,10 +7,9 @@ export default function TableAllUsers() {
   const defaultTableConf = {
     searchBy: "",
     searchString: "",
-    sort: { sortBy: "firstName", sortMode: "ASC" },
+    sort: { sortBy: "id", sortMethod: "asc" },
     page: 1,
     maxPerpage: 10,
-    dataCount: 120,
     tableHead: [
       { headTitle: "ID", headKey: "id" },
       { headTitle: "Name", headKey: "name" },
@@ -32,7 +31,7 @@ export default function TableAllUsers() {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}`,
+      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}&sortBy=${defaultTableConf.sort.sortBy}&sortMethod=${defaultTableConf.sort.sortMethod}`,
       { credentials: "include" }
     )
       .then((res) => res.json())
@@ -72,7 +71,7 @@ export default function TableAllUsers() {
     if (copyTableConf.page > 1 && direction === "prev") copyTableConf.page -= 1;
     setTableConf(copyTableConf);
     getData(
-      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}&sortBy=${copyTableConf.sort.sortBy}&sortMethod=${copyTableConf.sort.sortMethod}`
     );
   }
   // Handle Pagination (NumberClick)
@@ -81,7 +80,7 @@ export default function TableAllUsers() {
     copyTableConf.page = num;
     setTableConf(copyTableConf);
     getData(
-      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}&sortBy=${copyTableConf.sort.sortBy}&sortMethod=${copyTableConf.sort.sortMethod}`
     );
   }
 
@@ -92,6 +91,19 @@ export default function TableAllUsers() {
     setTableConf(copyTableConf);
   }
 
+  // Handle Sort
+  function handleSort(sortBy) {
+    let copyTableConf = { ...tableConf };
+    copyTableConf.sort = {
+      sortBy: sortBy,
+      sortMethod: tableConf.sort.sortMethod === "asc" ? "desc" : "asc",
+    };
+    setTableConf(copyTableConf);
+    getData(
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}&sortBy=${copyTableConf.sort.sortBy}&sortMethod=${copyTableConf.sort.sortMethod}`
+    );
+  }
+
   // Handle Search Input Text
   function handleSearchInput(searchString) {
     let copyTableConf = { ...tableConf };
@@ -99,9 +111,8 @@ export default function TableAllUsers() {
     copyTableConf.searchString = searchString;
     setTableConf(copyTableConf);
     getData(
-      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}`
+      `page=${copyTableConf.page}&maxPerpage=${copyTableConf.maxPerpage}&searchBy=${copyTableConf.searchBy}&searchString=${copyTableConf.searchString}&sortBy=${defaultTableConf.sort.sortBy}&sortMethod=${defaultTableConf.sort.sortMethod}`
     );
-    console.log(searchString);
   }
 
   // If any error return error
@@ -178,9 +189,26 @@ export default function TableAllUsers() {
         {/* Table Head */}
         <thead>
           <tr>
-            {tableConf.tableHead.map((head) => (
-              <th key={head.headKey}>{head.headTitle}</th>
-            ))}
+            {tableConf.tableHead.map((head) => {
+              return (
+                <th
+                  key={head.headKey}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleSort(head.headKey)}
+                >
+                  {head.headTitle}
+                  <span>
+                    <i
+                      className={
+                        tableConf.sort.sortBy === head.headKey
+                          ? "bi bi-filter"
+                          : ""
+                      }
+                    ></i>
+                  </span>
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
@@ -207,6 +235,11 @@ export default function TableAllUsers() {
       </table>
       <br />
       {/* Pagination  */}
+      <p>
+        Displaying Page: {tableConf.page} - Sort By : {tableConf.sort.sortBy}{" "}
+        {tableConf.sort.sortMethod}
+      </p>
+
       <nav aria-label="Page navigation example">
         <ul className="pagination">
           <li className="page-item">
@@ -218,22 +251,7 @@ export default function TableAllUsers() {
               Previous
             </a>
           </li>
-          {/* Get Automated Number data count DB / Max per page */}
-          {[
-            ...Array(Math.ceil(tableConf.dataCount / tableConf.maxPerpage)),
-          ].map((key, value) => {
-            return (
-              <li key={value} className="page-item">
-                <a
-                  className="page-link"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handlePaginationNumber(value + 1)}
-                >
-                  {value + 1}
-                </a>
-              </li>
-            );
-          })}
+
           <li className="page-item">
             <a
               className="page-link"
