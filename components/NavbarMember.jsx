@@ -5,12 +5,24 @@ import Link from "next/link";
 
 const menuNavbar = [
   { url: "/", menuTitle: "Home" },
-  { url: "/user/login", menuTitle: "Login" },
+  { url: "/dashboard", menuTitle: "Dashboard" },
 ];
 
-const menuNavbarDropdown = [{ url: "/", menuTitle: "Home" }];
+const menuNavbarDropdown = [
+  {
+    url: "/example/dashboard-prod",
+    menuTitle: "Dashboard - Table + Pagination + Search",
+  },
+  { url: "/example/recoil-input", menuTitle: "Recoil Input" },
+  { url: "/example/example", menuTitle: "Table & Modal" },
+  { url: "/example/csr-swr", menuTitle: "CSR SWR" },
+  {
+    url: "/example/ssr-getserversideprops",
+    menuTitle: "SSR - Server Side Props",
+  },
+];
 
-export default function Navbar() {
+export default function NavbarMember() {
   return (
     <div>
       <Head>
@@ -63,7 +75,7 @@ export default function Navbar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  About
+                  Examples
                 </a>
                 <ul className="dropdown-menu">
                   {menuNavbarDropdown.map((menu) => {

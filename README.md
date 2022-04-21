@@ -2,6 +2,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+PRESETUP:
+
+- Run Backend (nodejs-starterkit) and import SQL from git in same folder with it
+
 First, run the development server:
 
 ```bash

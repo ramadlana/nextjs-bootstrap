@@ -2,6 +2,7 @@ import { useRecoilState } from "recoil";
 import { exampleState, listNameState, nameState } from "../../state/allState";
 import Link from "next/link";
 import { useRef } from "react";
+import NavbarMember from "../../components/NavbarMember";
 
 export default function CharacterCounter() {
   const [name, setName] = useRecoilState(nameState);
@@ -22,44 +23,49 @@ export default function CharacterCounter() {
 
   return (
     <div>
-      <input
-        type="text"
-        className="form-control"
-        ref={input1}
-        onChange={() => {
-          setName(input1.current.value);
-        }}
-      />
-      <br />
-      Echo: {name}
-      <div>
-        <Link href={"/test/recoil/display"}>display it</Link>
+      <NavbarMember></NavbarMember>
+      <div className="container">
+        <input
+          type="text"
+          className="form-control"
+          ref={input1}
+          onChange={() => {
+            setName(input1.current.value);
+          }}
+        />
+        <br />
+        Data From Recoil: {name}
+        <div>
+          <Link href={"/example/recoil-display"}>
+            display it on another page
+          </Link>
+        </div>
+        <br />
+        {list.map((item) => {
+          return (
+            <div key={item.id}>
+              <input
+                className="form-control"
+                itemType="number"
+                value={item.value}
+                onChange={(e) => onChange(e, item.id)}
+              ></input>
+              Data From Recoil: {item.value}
+            </div>
+          );
+        })}
+        <input type="text" ref={inputAppendRef} />
+        <button
+          onClick={(e) => {
+            let newVal = [...example];
+            newVal.push({ exampleKey: inputAppendRef.current.value });
+            setExample(newVal);
+          }}
+        >
+          Append to example State
+        </button>
+        echo : {JSON.stringify(example)}
       </div>
-      <br />
-      {list.map((item) => {
-        return (
-          <div key={item.id}>
-            <input
-              className="form-control"
-              itemType="number"
-              value={item.value}
-              onChange={(e) => onChange(e, item.id)}
-            ></input>
-            Echo: {item.value}
-          </div>
-        );
-      })}
-      <input type="text" ref={inputAppendRef} />
-      <button
-        onClick={(e) => {
-          let newVal = [...example];
-          newVal.push({ exampleKey: inputAppendRef.current.value });
-          setExample(newVal);
-        }}
-      >
-        Append to example State
-      </button>
-      echo : {JSON.stringify(example)}
     </div>
   );
 }

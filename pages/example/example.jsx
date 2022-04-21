@@ -1,14 +1,14 @@
-import Navbar from "../../components/Navbar";
 import Modal from "../../components/Modal";
-import TableCommon from "../../components/common/Table";
 import { useRecoilState } from "recoil";
 import { exampleTableState } from "../../state/tableState";
+import TableCommon from "../../components/example-components/Table";
+import NavbarMember from "../../components/NavbarMember";
 
 export default function Example() {
   const [tableData, setTableData] = useRecoilState(exampleTableState);
   return (
     <div>
-      <Navbar />
+      <NavbarMember></NavbarMember>
       <div className="container shadow-sm">
         <h4 className="mt-3 mb-3">Modal</h4>
         <Modal button_name="Click To Popup Modal" modal_content="hoam"></Modal>

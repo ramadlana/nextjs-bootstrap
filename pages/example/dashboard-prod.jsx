@@ -1,9 +1,8 @@
 import useSWR from "swr";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-import DatatablesUseeffect from "../components/example-components/datatables_useeffect";
-import DatatablesUseSWR from "../components/example-components/datatables_useSWR";
-import NavbarMember from "../components/NavbarMember";
+import Navbar from "../../components/Navbar";
+import TableAllUsers from "../../components/example-components/TableAllUsers";
+import NavbarMember from "../../components/NavbarMember";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -12,7 +11,7 @@ const fetcherAxios = async (...args) =>
     .then((res) => res)
     .catch((err) => (err.response ? err.response : err));
 
-export default function Dashboard({ cookies }) {
+export default function DashboardProd({ cookies }) {
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
@@ -34,14 +33,14 @@ export default function Dashboard({ cookies }) {
     return (
       <>
         <Navbar></Navbar>
-        <div className="container">
+        <div className="m-3">
           <button className="btn btn-primary" type="button" disabled>
             <span
               className="spinner-border spinner-border-sm mx-3 "
               role="status"
               aria-hidden="true"
             />
-            Authenticating...
+            Loading...
           </button>
         </div>
       </>
@@ -51,6 +50,7 @@ export default function Dashboard({ cookies }) {
   if (data.status === 401)
     return (
       <>
+        <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
             You dont have permission to access this page: {data.data.message}
@@ -83,18 +83,14 @@ export default function Dashboard({ cookies }) {
   if (data.status === 200)
     return (
       <div>
-        <NavbarMember />
+        <NavbarMember></NavbarMember>
         <div className="container">
           <h1>Dashboard</h1>
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
-          <h4>Datatables Components</h4>
-          <h6>Load using useEffect</h6>
-          <DatatablesUseeffect></DatatablesUseeffect>
-          <h4>Datatables Components</h4>
-          <h6>Load using useSWR - AXIOS</h6>
-          <DatatablesUseSWR></DatatablesUseSWR>
+          {/* Call Table Components */}
+          <TableAllUsers></TableAllUsers>
         </div>
       </div>
     );

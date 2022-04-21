@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import axios from "axios";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
+import NavbarMember from "../../components/NavbarMember";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -78,7 +79,7 @@ export default function Dashboard() {
   if (data.status === 200)
     return (
       <div>
-        <Navbar />
+        <NavbarMember></NavbarMember>
         <div className="container">
           <h1>Client Sides Render using SWR</h1>
           <div className="alert alert-success" role="alert">

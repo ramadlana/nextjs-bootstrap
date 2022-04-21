@@ -125,6 +125,7 @@ export default function TableCommon({ tableData }) {
             onChange={() => handleSearchInput(searchInputRef.current.value)}
           />
         </div>
+        {/* End Of Search Bar */}
         <table className="table table-hover">
           <thead>
             <tr>

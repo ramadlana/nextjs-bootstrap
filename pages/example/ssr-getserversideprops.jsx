@@ -1,20 +1,25 @@
+import NavbarMember from "../../components/NavbarMember";
+
 // for Server side rendering every request
 function GetServerSideProps({ album }) {
   return (
-    <div className="col-12">
-      <table>
-        <tbody>
-          {album.map((item) => {
-            return (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <NavbarMember></NavbarMember>
+      <div className="col-12">
+        <table>
+          <tbody>
+            {album.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.title}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
