@@ -5,6 +5,7 @@ const nextConfig = {
     domains: ["github.com"],
   },
   env: {
+    // without /
     BACKEND_SERVER: "http://localhost:8000",
     // BACKEND_SERVER: "https://a0a7-125-166-118-26.ngrok.io",
   },
