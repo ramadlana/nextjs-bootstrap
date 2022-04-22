@@ -222,7 +222,9 @@ export default function TableAllUsers() {
             <tr key={item.id}>
               {/* Computed and need further process Table Data */}
               <td>
-                <Link href={`/tableuser/${item.id}`}>
+                <Link
+                  href={`/tableuser/${item.id}?foo=bar&test=thisistestnumber${item.id}`}
+                >
                   <a>
                     <span className="badge rounded-pill bg-secondary ">
                       {item.id}
