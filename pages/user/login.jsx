@@ -7,7 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
-  const [apiReturn, setapiReturn] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const usernameRef = useRef(null);
@@ -94,6 +93,13 @@ export default function Login() {
             </div>
 
             <div>{buttonLoading}</div>
+            <p className="text-center mt-2">or Register here.</p>
+            <button
+              className="btn btn-primary w-100"
+              onClick={() => Router.push("/user/register")}
+            >
+              Register
+            </button>
           </div>
         </div>
       </div>
