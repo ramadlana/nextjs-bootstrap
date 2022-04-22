@@ -178,8 +178,13 @@ export default function TableAllUsers() {
           className="form-control form-control-sm"
           aria-label="Text input with dropdown button"
           ref={searchInputRef}
-          onChange={() => handleSearchInput(searchInputRef.current.value)}
         />
+        <button
+          className="btn btn-primary"
+          onClick={() => handleSearchInput(searchInputRef.current.value)}
+        >
+          Search
+        </button>
       </div>
       {/* End Of Search Bar */}
 

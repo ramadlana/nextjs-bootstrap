@@ -3,9 +3,9 @@ import Image from "next/image";
 import Script from "next/script";
 import Link from "next/link";
 
-const menuNavbar = [
+let menuNavbar = [
   { url: "/", menuTitle: "Home" },
-  { url: "/user/login", menuTitle: "Login" },
+  { url: "/dashboard", menuTitle: "Member Dashboard" },
 ];
 
 const menuNavbarDropdown = [{ url: "/", menuTitle: "Home" }];
@@ -76,15 +76,6 @@ export default function Navbar() {
                 </ul>
               </li>
             </ul>
-
-            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search..."
-                aria-label="Search"
-              ></input>
-            </form>
 
             <div className="dropdown text-end">
               <a

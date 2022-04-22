@@ -5,7 +5,7 @@ function GetServerSideProps({ album }) {
   return (
     <>
       <NavbarMember></NavbarMember>
-      <div className="col-12">
+      <div className="container col-12">
         <table>
           <tbody>
             {album.map((item) => {
@@ -23,9 +23,9 @@ function GetServerSideProps({ album }) {
   );
 }
 
-// This gets called on every request
+// This gets called and rendered every request (Server Side)
 export async function getServerSideProps(context) {
-  // you also can access context.req|res
+  // you also can Intercept access context.req|res
   // Fetch data from external API
   const res = await fetch(`https://jsonplaceholder.typicode.com/albums`);
   const data = await res.json();

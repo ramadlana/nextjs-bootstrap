@@ -1,11 +1,10 @@
 import Modal from "../../components/Modal";
-import { useRecoilState } from "recoil";
-import { exampleTableState } from "../../state/tableState";
 import TableCommon from "../../components/example-components/Table";
 import NavbarMember from "../../components/NavbarMember";
+import { useStore } from "../../state/globalState";
 
 export default function Example() {
-  const [tableData, setTableData] = useRecoilState(exampleTableState);
+  const tableData = useStore((state) => state.exampleTableState);
   return (
     <div>
       <NavbarMember></NavbarMember>

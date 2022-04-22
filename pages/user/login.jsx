@@ -29,6 +29,10 @@ export default function Login() {
         withCredentials: "true",
       });
       setLoading(false);
+      localStorage.setItem(
+        "username",
+        JSON.stringify(resp.data.userInfo.username)
+      );
       toast.success(resp.data.message);
 
       Router.replace("/dashboard");

@@ -1,12 +1,12 @@
 // // for client side rendering every request
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { useRecoilState } from "recoil";
-import { exampleTableState } from "../../state/tableState";
+import { useStore } from "../../state/globalState";
 
 //   Export Page
 export default function TableCommon({ tableData }) {
-  const [, setTableData] = useRecoilState(exampleTableState);
+  // Zustand State
+  const setTableData = useStore((state) => state.setExampleTableState);
   const searchInputRef = useRef(null);
 
   // Handle Search By

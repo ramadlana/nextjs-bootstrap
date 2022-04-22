@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { userState } from "../../state/allState";
 import _ from "lodash";
+import { useStore } from "../../state/globalState";
 
 export default function DatatablesUseeffect() {
-  const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
+  // Consume State
+  const user = useStore((state) => state.userState);
+  // Set State
+  const setUser = useStore((state) => state.setUserState);
 
   useEffect(() => {
     setLoading(true);

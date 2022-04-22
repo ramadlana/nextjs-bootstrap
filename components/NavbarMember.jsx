@@ -13,12 +13,16 @@ const menuNavbarDropdown = [
     url: "/example/dashboard-prod",
     menuTitle: "Dashboard Table",
   },
-  { url: "/example/recoil-input", menuTitle: "Recoil Input" },
+  { url: "/example/zustand", menuTitle: "Zustand State Management" },
   { url: "/example/example", menuTitle: "Table & Modal" },
   { url: "/example/csr-swr", menuTitle: "CSR SWR" },
   {
     url: "/example/ssr-getserversideprops",
     menuTitle: "SSR - Server Side Props",
+  },
+  {
+    url: "/example/table-useeffect-useswr",
+    menuTitle: "useEffect useSwr Table",
   },
 ];
 
@@ -87,15 +91,6 @@ export default function NavbarMember() {
                 </ul>
               </li>
             </ul>
-
-            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search..."
-                aria-label="Search"
-              ></input>
-            </form>
 
             <div className="dropdown text-end">
               <a

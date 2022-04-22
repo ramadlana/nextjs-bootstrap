@@ -1,7 +1,8 @@
 import useSWR from "swr";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
-import TableAllUsers from "../../components/example-components/TableAllUsers";
+import DatatablesUseeffect from "../../components/example-components/datatables_useeffect";
+import DatatablesUseSWR from "../../components/example-components/datatables_useSWR";
 import NavbarMember from "../../components/NavbarMember";
 
 // Fethcer Axios
@@ -11,7 +12,7 @@ const fetcherAxios = async (...args) =>
     .then((res) => res)
     .catch((err) => (err.response ? err.response : err));
 
-export default function DashboardProd({ cookies }) {
+export default function TableUseEffectUseSwr({ cookies }) {
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
@@ -34,12 +35,14 @@ export default function DashboardProd({ cookies }) {
       <>
         <Navbar></Navbar>
         <div className="container">
-          <div className="text-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="sr-only"></span>
-            </div>
-            <p>Loading Page</p>
-          </div>
+          <button className="btn btn-primary" type="button" disabled>
+            <span
+              className="spinner-border spinner-border-sm mx-3 "
+              role="status"
+              aria-hidden="true"
+            />
+            Authenticating...
+          </button>
         </div>
       </>
     );
@@ -81,15 +84,18 @@ export default function DashboardProd({ cookies }) {
   if (data.status === 200)
     return (
       <div>
-        <NavbarMember></NavbarMember>
+        <NavbarMember />
         <div className="container">
-          <h2>Dashboard</h2>
-          <h6>Data table - Pagination - Searching</h6>
+          <h1>Dashboard</h1>
           <div className="alert alert-success" role="alert">
-            {`Welcome Back ${localStorage.getItem("username")}`}
+            {data.data.message}
           </div>
-          {/* Call Table Components */}
-          <TableAllUsers></TableAllUsers>
+          <h4>Datatables Components</h4>
+          <h6>Load using useEffect</h6>
+          <DatatablesUseeffect></DatatablesUseeffect>
+          <h4>Datatables Components</h4>
+          <h6>Load using useSWR - AXIOS</h6>
+          <DatatablesUseSWR></DatatablesUseSWR>
         </div>
       </div>
     );

@@ -90,12 +90,6 @@ export default function Dashboard({ cookies }) {
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
-          <h4>Datatables Components</h4>
-          <h6>Load using useEffect</h6>
-          <DatatablesUseeffect></DatatablesUseeffect>
-          <h4>Datatables Components</h4>
-          <h6>Load using useSWR - AXIOS</h6>
-          <DatatablesUseSWR></DatatablesUseSWR>
         </div>
       </div>
     );

@@ -8,7 +8,7 @@ const fetcherAxios = async (...args) =>
     .then((res) => res)
     .catch((err) => (err.response ? err.response : err));
 
-export default function Dashboard({ cookies }) {
+export default function Logout({ cookies }) {
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/sign/out`,
@@ -37,7 +37,10 @@ export default function Dashboard({ cookies }) {
         </button>
       </div>
     );
-  if (data.status === 200) window.location.href = "/";
+  if (data.status === 200) {
+    localStorage.removeItem("username");
+    window.location.href = "/";
+  }
   if (data.status !== 200)
     return (
       <div>
