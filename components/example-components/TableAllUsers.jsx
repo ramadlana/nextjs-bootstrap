@@ -235,7 +235,7 @@ export default function TableAllUsers() {
               {/* Regular Table Data */}
               <td>{item.name}</td>
               <td>{item.address}</td>
-              <td>{item.country.country}</td>
+              <td>{item.app_dummy_country.country}</td>
             </tr>
           ))}
         </tbody>
