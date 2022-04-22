@@ -4,7 +4,7 @@ export default function Home() {
     <div>
       <Navbar />
       <div className="container shadow-sm">
-        <h1>Hello This is Home Page</h1>
+        <h1>Project Radius</h1>
       </div>
     </div>
   );
