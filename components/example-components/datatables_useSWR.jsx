@@ -13,6 +13,14 @@ const fetcherAxios = async (...args) =>
 
 //   Export Page
 export default function DatatablesUseSWR() {
+  // Load localstorage key from next JS is unique
+  // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+  let access_token;
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    access_token = localStorage.getItem("access_token");
+  }
+
   //   use data + error because used fetch
   const { data, error } = useSWR(
     [
@@ -20,8 +28,8 @@ export default function DatatablesUseSWR() {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-access_token": access_token,
         },
-        withCredentials: "true",
       },
     ],
     fetcherAxios

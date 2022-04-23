@@ -30,7 +30,6 @@ export default function Register() {
             username: usernameRef.current.value,
             password: passwordRef.current.value,
           },
-          withCredentials: "true",
         });
         setLoading(false);
         toast.success(resp.data.message);

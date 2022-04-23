@@ -25,15 +25,10 @@ export default function Login() {
           username: usernameRef.current.value,
           password: passwordRef.current.value,
         },
-        withCredentials: "true",
       });
       setLoading(false);
-      localStorage.setItem(
-        "username",
-        JSON.stringify(resp.data.userInfo.username)
-      );
+      localStorage.setItem("access_token", resp.data.access_token);
       toast.success(resp.data.message);
-
       Router.replace("/dashboard");
     } catch (err) {
       setLoading(false);
