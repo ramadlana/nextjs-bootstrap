@@ -20,8 +20,8 @@ export default function DatatablesUseSWR() {
       {
         headers: {
           "Content-Type": "application/json",
+          "x-access_token": localStorage.getItem("access_token"),
         },
-        withCredentials: "true",
       },
     ],
     fetcherAxios
