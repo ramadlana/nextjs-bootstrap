@@ -24,13 +24,13 @@ export default function Register() {
           url: `${process.env.BACKEND_SERVER}/sign/up`,
           headers: {
             "Content-Type": "application/json",
+            "x-access_token": localStorage.getItem("access_token"),
           },
           data: {
             email: emailRef.current.value,
             username: usernameRef.current.value,
             password: passwordRef.current.value,
           },
-          withCredentials: "true",
         });
         setLoading(false);
         toast.success(resp.data.message);

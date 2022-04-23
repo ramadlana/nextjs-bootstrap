@@ -1,9 +1,8 @@
 import useSWR from "swr";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import DatatablesUseeffect from "../components/example-components/datatables_useeffect";
-import DatatablesUseSWR from "../components/example-components/datatables_useSWR";
 import NavbarMember from "../components/NavbarMember";
+import TableRadcheck from "../components/table/TableRadcheck";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -13,14 +12,22 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function Dashboard({ cookies }) {
+  // Load localstorage key from next JS is unique
+  // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+  let access_token;
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    access_token = localStorage.getItem("access_token");
+  }
+
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
       {
         headers: {
           "Content-Type": "application/json",
+          "x-access_token": access_token,
         },
-        withCredentials: "true",
       },
     ],
     fetcherAxios
@@ -86,10 +93,11 @@ export default function Dashboard({ cookies }) {
       <div>
         <NavbarMember />
         <div className="container">
-          <h1>Dashboard</h1>
+          <h3>Dashboard</h3>
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
+          <TableRadcheck></TableRadcheck>
         </div>
       </div>
     );

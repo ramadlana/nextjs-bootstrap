@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import Link from "next/link";
 
-export default function TableAllUsers() {
+export default function TableRadcheck() {
   // Default tableconf state
   const defaultTableConf = {
     searchBy: "",
@@ -12,9 +12,13 @@ export default function TableAllUsers() {
     maxPerpage: 10,
     tableHead: [
       { headTitle: "ID", headKey: "id" },
-      { headTitle: "Name", headKey: "name" },
+      { headTitle: "Username", headKey: "username" },
+      { headTitle: "Expiry Date", headKey: "expirydate" },
+      { headTitle: "Email", headKey: "email" },
       { headTitle: "Address", headKey: "address" },
-      { headTitle: "Country", headKey: "country.country" },
+      { headTitle: "First Name", headKey: "first_name" },
+      { headTitle: "Last Name", headKey: "last_name" },
+      { headTitle: "Phone", headKey: "phone" },
     ],
   };
 
@@ -31,7 +35,7 @@ export default function TableAllUsers() {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}&sortBy=${defaultTableConf.sort.sortBy}&sortMethod=${defaultTableConf.sort.sortMethod}`,
+      `${process.env.BACKEND_SERVER}/dashboard/all-radius-user?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}&sortBy=${defaultTableConf.sort.sortBy}&sortMethod=${defaultTableConf.sort.sortMethod}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -54,13 +58,8 @@ export default function TableAllUsers() {
   function getData(route_params) {
     setLoading(true);
     fetch(
-      `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?${route_params}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
-        },
-      }
+      `${process.env.BACKEND_SERVER}/dashboard/all-radius-user?${route_params}`,
+      { credentials: "include" }
     )
       .then((res) => res.json())
       .then(({ data }) => {
@@ -243,9 +242,13 @@ export default function TableAllUsers() {
                 </Link>
               </td>
               {/* Regular Table Data */}
-              <td>{item.name}</td>
+              <td>{item.username}</td>
+              <td>{item.expirydate}</td>
+              <td>{item.email}</td>
               <td>{item.address}</td>
-              <td>{item.app_dummy_country.country}</td>
+              <td>{item.first_name}</td>
+              <td>{item.last_name}</td>
+              <td>{item.phone}</td>
             </tr>
           ))}
         </tbody>
@@ -284,14 +287,3 @@ export default function TableAllUsers() {
     </div>
   );
 }
-
-// {
-//   "id": 4,
-//   "username": "hidayah",
-//   "expirydate": "2022-04-11T00:00:00.000Z",
-//   "email": "hidayahweb@gmail.com",
-//   "address": "prajekan",
-//   "first_name": "hidayah",
-//   "last_name": "ramadlana",
-//   "phone": "6282244232984"
-// },

@@ -13,14 +13,21 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function TableUseEffectUseSwr({ cookies }) {
+  // Load localstorage key from next JS is unique
+  // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+  let access_token;
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    access_token = localStorage.getItem("access_token");
+  }
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
       {
         headers: {
           "Content-Type": "application/json",
+          "x-access_token": access_token,
         },
-        withCredentials: "true",
       },
     ],
     fetcherAxios

@@ -20,20 +20,19 @@ export default function Login() {
         url: `${process.env.BACKEND_SERVER}/sign/in`,
         headers: {
           "Content-Type": "application/json",
+          "x-access_token": localStorage.getItem("access_token"),
         },
         data: {
           username: usernameRef.current.value,
           password: passwordRef.current.value,
         },
-        withCredentials: "true",
       });
       setLoading(false);
-      localStorage.setItem(
-        "username",
-        JSON.stringify(resp.data.userInfo.username)
-      );
-      toast.success(resp.data.message);
 
+      // save token into localstorage
+      localStorage.setItem("access_token", resp.data.access_token);
+      toast.success(resp.data.message);
+      // Redirecr to Dashboard
       Router.replace("/dashboard");
     } catch (err) {
       setLoading(false);
