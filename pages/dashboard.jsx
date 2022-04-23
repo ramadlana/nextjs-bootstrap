@@ -61,7 +61,7 @@ export default function Dashboard({ cookies }) {
         <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
-            You dont have permission to access this page: {data.data.message}
+            You dont have permission to access this page. please login
           </div>
 
           <button

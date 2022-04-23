@@ -29,10 +29,23 @@ export default function TableAllUsers() {
 
   // Use Effect - Load data when page Load
   useEffect(() => {
+    // Load localstorage key from next JS is unique
+    // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+    let access_token;
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+      access_token = localStorage.getItem("access_token");
+    }
+
     setLoading(true);
     fetch(
       `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?page=${defaultTableConf.page}&maxPerpage=${defaultTableConf.maxPerpage}&sortBy=${defaultTableConf.sort.sortBy}&sortMethod=${defaultTableConf.sort.sortMethod}`,
-      { credentials: "include" }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access_token": access_token,
+        },
+      }
     )
       .then((res) => res.json())
       .then(({ data }) => {
@@ -47,10 +60,23 @@ export default function TableAllUsers() {
 
   // Get data when page already load - For pagination and other
   function getData(route_params) {
+    // Load localstorage key from next JS is unique
+    // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+    let access_token;
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+      access_token = localStorage.getItem("access_token");
+    }
+
     setLoading(true);
     fetch(
       `${process.env.BACKEND_SERVER}/dashboard/alluser-pagination?${route_params}`,
-      { credentials: "include" }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access_token": access_token,
+        },
+      }
     )
       .then((res) => res.json())
       .then(({ data }) => {
