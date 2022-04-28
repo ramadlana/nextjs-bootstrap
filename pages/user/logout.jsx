@@ -1,8 +1,8 @@
-import useSWR from "swr";
-
-import Navbar from "../../components/Navbar";
-
-export default function Logout({ cookies }) {
-  localStorage.clear();
-  window.location.href = "/";
+export default function Logout() {
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    localStorage.clear();
+    window.location.href = "/";
+  }
+  return <h1>Logout</h1>;
 }

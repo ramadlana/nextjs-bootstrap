@@ -59,7 +59,12 @@ export default function TableRadcheck() {
     setLoading(true);
     fetch(
       `${process.env.BACKEND_SERVER}/dashboard/all-radius-user?${route_params}`,
-      { credentials: "include" }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access_token": localStorage.getItem("access_token"),
+        },
+      }
     )
       .then((res) => res.json())
       .then(({ data }) => {
@@ -199,60 +204,60 @@ export default function TableRadcheck() {
 
       {/* Render Loading Spinner */}
       {renderLoading()}
-      <table className="table table-hover">
-        {/* Table Head */}
-        <thead>
-          <tr>
-            {tableConf.tableHead.map((head) => {
-              return (
-                <th
-                  key={head.headKey}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleSort(head.headKey)}
-                >
-                  {head.headTitle}
-                  <span>
-                    <i
-                      className={
-                        tableConf.sort.sortBy === head.headKey
-                          ? "bi bi-filter"
-                          : ""
-                      }
-                    ></i>
-                  </span>
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {/* Table Rows */}
-          {tableRows.map((item) => (
-            <tr key={item.id}>
-              {/* Computed and need further process Table Data */}
-              <td>
-                <Link
-                  href={`/tableuser/${item.id}?foo=bar&test=thisistestnumber${item.id}`}
-                >
-                  <a>
-                    <span className="badge rounded-pill bg-secondary ">
-                      {item.id}
+      <div className="table-responsive">
+        <table className="table table-hover">
+          {/* Table Head */}
+          <thead>
+            <tr>
+              {tableConf.tableHead.map((head) => {
+                return (
+                  <th
+                    key={head.headKey}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleSort(head.headKey)}
+                  >
+                    {head.headTitle}
+                    <span>
+                      <i
+                        className={
+                          tableConf.sort.sortBy === head.headKey
+                            ? "bi bi-filter"
+                            : ""
+                        }
+                      ></i>
                     </span>
-                  </a>
-                </Link>
-              </td>
-              {/* Regular Table Data */}
-              <td>{item.username}</td>
-              <td>{item.expirydate}</td>
-              <td>{item.email}</td>
-              <td>{item.address}</td>
-              <td>{item.first_name}</td>
-              <td>{item.last_name}</td>
-              <td>{item.phone}</td>
+                  </th>
+                );
+              })}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {/* Table Rows */}
+            {tableRows.map((item) => (
+              <tr key={item.id}>
+                {/* Computed and need further process Table Data */}
+                <td>
+                  <Link href={`/memberarea/${item.id}`}>
+                    <a>
+                      <span className="badge rounded-pill bg-secondary ">
+                        {item.id}
+                      </span>
+                    </a>
+                  </Link>
+                </td>
+                {/* Regular Table Data */}
+                <td>{item.username}</td>
+                <td>{item.expirydate}</td>
+                <td>{item.email}</td>
+                <td>{item.address}</td>
+                <td>{item.first_name}</td>
+                <td>{item.last_name}</td>
+                <td>{item.phone}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <br />
       {/* Pagination  */}
       <p>
