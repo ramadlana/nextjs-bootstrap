@@ -46,6 +46,8 @@ const useStore = create((set) => ({
   setExampleTableState: (data) => set({ exampleTableState: data }),
 
   // PROD
+
+  // add subs form state
   addSubsFormState: {},
   setAddSubsFormState: (data) => set({ addSubsFormState: data }),
 }));

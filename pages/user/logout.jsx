@@ -4,5 +4,5 @@ export default function Logout() {
     localStorage.clear();
     window.location.href = "/";
   }
-  return <h1>Logout</h1>;
+  return <h4>Please wait..</h4>;
 }

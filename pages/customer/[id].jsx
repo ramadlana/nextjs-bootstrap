@@ -10,7 +10,6 @@ import { useStore } from "../../state/globalState";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
@@ -26,6 +25,7 @@ const fetcherAxios = async (...args) =>
 
 export default function UserDetail({ queryID }) {
   const { back } = useRouter();
+  // Zustand state consume
   const formData = useStore((state) => state.addSubsFormState);
 
   // Load localstorage key from next JS is unique
@@ -36,10 +36,7 @@ export default function UserDetail({ queryID }) {
     access_token = localStorage.getItem("access_token");
   }
 
-  // if (!isReady) {
-  //   return <p>Loading</p>;
-  // }
-
+  // Get data using SWR
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard/radiususer/${queryID}`,
@@ -70,35 +67,6 @@ export default function UserDetail({ queryID }) {
         </div>
       </>
     );
-
-  // handleSubmit Form
-  const handleSubmitEditUser = async () => {
-    const editedData = {
-      id: formData.id,
-      username: formData.username,
-      email: formData.email,
-      address: formData.address,
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      phone: formData.phone,
-    };
-    toast.info("Editing Data.. Please wait");
-    try {
-      const resp = await axios.patch(
-        `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
-        { editedData },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access_token": access_token,
-          },
-        }
-      );
-      toast.success(resp.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
 
   // If error Syntax and SWR
   if (error) return <h1>another error happen: {JSON.stringify(error)}</h1>;
@@ -136,7 +104,37 @@ export default function UserDetail({ queryID }) {
       </div>
     );
 
+  // If data.user not found
   if (!data.data.user) return <h4>user not found</h4>;
+
+  // handleSubmit Form
+  const handleSubmitEditUser = async () => {
+    const editedData = {
+      id: formData.id,
+      username: formData.username,
+      email: formData.email,
+      address: formData.address,
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      phone: formData.phone,
+    };
+    toast.info("Editing Data.. Please wait");
+    try {
+      const resp = await axios.patch(
+        `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
+        { editedData },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access_token": access_token,
+          },
+        }
+      );
+      toast.success(resp.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   // If return status code 200 Authorized
   if (data.status === 200) {
@@ -220,7 +218,7 @@ export default function UserDetail({ queryID }) {
             button_name="Payment History"
             modal_title="Payment History"
           ></Modal>
-          <button className="btn btn-primary mx-1" onClick={() => back()}>
+          <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
             Back
           </button>
         </div>
@@ -229,6 +227,7 @@ export default function UserDetail({ queryID }) {
   }
 }
 
+// Get context. get req.query
 export async function getServerSideProps(context) {
   const queryID = parseInt(context.query.id);
   // Pass data to the page via props

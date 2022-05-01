@@ -4,7 +4,7 @@ export default function Home() {
     <div>
       <Navbar />
       <div className="container shadow-sm">
-        <h1>RadiusMan 1.0</h1>
+        <h1>NET manager 1.0</h1>
       </div>
     </div>
   );

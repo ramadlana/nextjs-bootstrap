@@ -1,4 +1,4 @@
-import { useStore } from "../state/globalState";
+import { useStore } from "../../state/globalState";
 import axios from "axios";
 import { useState } from "react";
 

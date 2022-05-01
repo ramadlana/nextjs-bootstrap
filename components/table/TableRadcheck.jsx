@@ -239,7 +239,7 @@ export default function TableRadcheck() {
               <tr key={item.id}>
                 {/* Computed and need further process Table Data */}
                 <td>
-                  <Link href={`/customer/${item.id}`} key={item.id}>
+                  <Link href={`/customer/${item.id}`}>
                     <a>
                       <span className="badge rounded-pill bg-secondary ">
                         {item.id}
@@ -283,7 +283,7 @@ export default function TableRadcheck() {
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
             return (
-              <li className="page-item" id={num}>
+              <li className="page-item" key={num}>
                 <a
                   className="page-link"
                   style={{ cursor: "pointer" }}

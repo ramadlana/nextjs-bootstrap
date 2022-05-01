@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import NavbarMember from "../components/NavbarMember";
 import TableRadcheck from "../components/table/TableRadcheck";
 import Modal from "../components/Modal";
-import AddSubsForm from "../components/AddSubsForm";
+import AddSubsForm from "../components/form/AddSubs";
 import { useStore } from "../state/globalState";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,7 @@ const fetcherAxios = async (...args) =>
     .then((res) => res)
     .catch((err) => (err.response ? err.response : err));
 
-export default function Dashboard({ cookies }) {
+export default function Dashboard() {
   const setDataAddSubs = useStore((state) => state.setAddSubsFormState);
   const dataAddSubs = useStore((state) => state.addSubsFormState);
   // Load localstorage key from next JS is unique
@@ -27,6 +27,7 @@ export default function Dashboard({ cookies }) {
     access_token = localStorage.getItem("access_token");
   }
 
+  // get data using SWR
   const { data, error } = useSWR(
     [
       `${process.env.BACKEND_SERVER}/dashboard`,
@@ -40,8 +41,7 @@ export default function Dashboard({ cookies }) {
     fetcherAxios
   );
 
-  // Handle Modal button
-  // when submit clicked pass this function
+  // Handle Modal button. When submit clicked pass this function
   const handleSubmit = async (data) => {
     toast.info("Submitting data..");
     // window.alert(JSON.stringify(data));
@@ -62,7 +62,7 @@ export default function Dashboard({ cookies }) {
     }
   };
 
-  // clear DataAddSubs every button modal clicked
+  // Clear DataAddSubs every button modal clicked
   const handleInitClickModal = async () => {
     setDataAddSubs({});
   };
