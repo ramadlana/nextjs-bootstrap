@@ -1,19 +1,28 @@
-export default function Modal({ button_name, modal_content, onClickAction }) {
+// Please Add modal-form for clear form
+export default function Modal({
+  modal_id,
+  button_name,
+  button_init_click,
+  modal_content,
+  onClickAction,
+  modal_title,
+}) {
   return (
-    <div>
+    <>
       {/* Button trigger modal */}
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-primary mx-1"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target={"#" + modal_id}
+        onClick={button_init_click}
       >
         {button_name}
       </button>
       {/* Modal */}
       <div
         className="modal fade"
-        id="exampleModal"
+        id={modal_id}
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -22,13 +31,16 @@ export default function Modal({ button_name, modal_content, onClickAction }) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Modal title
+                {modal_title}
               </h5>
               <button
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={() => {
+                  document.getElementById("modal-form").reset();
+                }}
               />
             </div>
             <div className="modal-body">{modal_content}</div>
@@ -37,6 +49,9 @@ export default function Modal({ button_name, modal_content, onClickAction }) {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                onClick={() => {
+                  document.getElementById("modal-form").reset();
+                }}
               >
                 Close
               </button>
@@ -45,12 +60,12 @@ export default function Modal({ button_name, modal_content, onClickAction }) {
                 className="btn btn-primary"
                 onClick={onClickAction}
               >
-                Save changes
+                Submit
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import _ from "lodash";
 import Link from "next/link";
 
+import dayjs from "dayjs";
+
 export default function TableRadcheck() {
   // Default tableconf state
   const defaultTableConf = {
@@ -237,7 +239,7 @@ export default function TableRadcheck() {
               <tr key={item.id}>
                 {/* Computed and need further process Table Data */}
                 <td>
-                  <Link href={`/memberarea/${item.id}`}>
+                  <Link href={`/customer/${item.id}`} key={item.id}>
                     <a>
                       <span className="badge rounded-pill bg-secondary ">
                         {item.id}
@@ -247,7 +249,9 @@ export default function TableRadcheck() {
                 </td>
                 {/* Regular Table Data */}
                 <td>{item.username}</td>
-                <td>{item.expirydate}</td>
+                <td>
+                  {dayjs(item.expirydate).format("DD-MM-YYYY HH:mm:ss WIB")}
+                </td>
                 <td>{item.email}</td>
                 <td>{item.address}</td>
                 <td>{item.first_name}</td>
@@ -276,6 +280,20 @@ export default function TableRadcheck() {
               Previous
             </a>
           </li>
+
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+            return (
+              <li className="page-item" id={num}>
+                <a
+                  className="page-link"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handlePaginationNumber(num)}
+                >
+                  {num}
+                </a>
+              </li>
+            );
+          })}
 
           <li className="page-item">
             <a

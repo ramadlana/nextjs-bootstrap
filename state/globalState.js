@@ -1,5 +1,8 @@
 import create from "zustand";
 
+// WARNING
+// set must call inside function otherwise loop occur, because its re render DOM when changes
+
 // Long Text Default state
 const defaultTableState = {
   searchBy: "",
@@ -41,6 +44,10 @@ const useStore = create((set) => ({
   //   Table Example
   exampleTableState: defaultTableState,
   setExampleTableState: (data) => set({ exampleTableState: data }),
+
+  // PROD
+  addSubsFormState: {},
+  setAddSubsFormState: (data) => set({ addSubsFormState: data }),
 }));
 
 // You can create another store useCustomStore here, and dont forget to export it

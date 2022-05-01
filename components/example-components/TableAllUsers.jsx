@@ -284,14 +284,3 @@ export default function TableAllUsers() {
     </div>
   );
 }
-
-// {
-//   "id": 4,
-//   "username": "hidayah",
-//   "expirydate": "2022-04-11T00:00:00.000Z",
-//   "email": "hidayahweb@gmail.com",
-//   "address": "prajekan",
-//   "first_name": "hidayah",
-//   "last_name": "ramadlana",
-//   "phone": "6282244232984"
-// },

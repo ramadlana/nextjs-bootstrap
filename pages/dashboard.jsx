@@ -3,6 +3,11 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import NavbarMember from "../components/NavbarMember";
 import TableRadcheck from "../components/table/TableRadcheck";
+import Modal from "../components/Modal";
+import AddSubsForm from "../components/AddSubsForm";
+import { useStore } from "../state/globalState";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -12,6 +17,8 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function Dashboard({ cookies }) {
+  const setDataAddSubs = useStore((state) => state.setAddSubsFormState);
+  const dataAddSubs = useStore((state) => state.addSubsFormState);
   // Load localstorage key from next JS is unique
   // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
   let access_token;
@@ -32,6 +39,33 @@ export default function Dashboard({ cookies }) {
     ],
     fetcherAxios
   );
+
+  // Handle Modal button
+  // when submit clicked pass this function
+  const handleSubmit = async (data) => {
+    toast.info("Submitting data..");
+    // window.alert(JSON.stringify(data));
+    try {
+      const sendData = await axios.post(
+        `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
+        { data: data },
+        {
+          headers: {
+            "x-access_token": access_token,
+          },
+        }
+      );
+      toast.success("Success add new user");
+    } catch (error) {
+      if (error.response) return toast.error(error.response.data.message);
+      toast.error(error.message);
+    }
+  };
+
+  // clear DataAddSubs every button modal clicked
+  const handleInitClickModal = async () => {
+    setDataAddSubs({});
+  };
 
   // If error Syntax and SWR
   if (error) return <h1>another error happen: {JSON.stringify(error)}</h1>;
@@ -61,7 +95,7 @@ export default function Dashboard({ cookies }) {
         <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
-            You dont have permission to access this page: {data.data.message}
+            You dont have permission to access this page
           </div>
 
           <button
@@ -91,12 +125,22 @@ export default function Dashboard({ cookies }) {
   if (data.status === 200)
     return (
       <div>
+        <ToastContainer />
         <NavbarMember />
         <div className="container">
           <h3>Dashboard</h3>
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>
+          <Modal
+            modal_id="add-user"
+            button_name="Add Subscriber"
+            modal_title="Add Subscriber Form"
+            modal_content={<AddSubsForm></AddSubsForm>}
+            onClickAction={() => handleSubmit(dataAddSubs)}
+            button_init_click={handleInitClickModal}
+          ></Modal>
+          <div className="m-3"></div>
           <TableRadcheck></TableRadcheck>
         </div>
       </div>
