@@ -95,7 +95,7 @@ export default function Dashboard() {
         <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
-            You dont have permission to access this page
+            {data.data.message}
           </div>
 
           <button

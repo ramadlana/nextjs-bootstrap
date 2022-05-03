@@ -65,7 +65,11 @@ export default function Login() {
       <ToastContainer />
       <div className="container">
         <div className="row">
-          <div className="col 8">Please Login to access</div>
+          <div className="col 8">
+            <h4>Please Login to access</h4>
+            <p>default user password:</p>
+            <p>Username: superadmin Password: superadmin</p>
+          </div>
           <div className="col-4">
             <div className="mb-3">
               <label className="form-label">username</label>
