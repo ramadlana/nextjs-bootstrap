@@ -54,7 +54,6 @@ export default function Navbar() {
         </div>
       </nav>
       <div className="m-4"></div>
-      <Script src="/js/jquery-3.3.1.slim.min.js"></Script>
       <Script src="/js/popper.min.js"></Script>
       <Script src="/js/bootstrap.min.js" strategy="afterInteractive"></Script>
     </div>
