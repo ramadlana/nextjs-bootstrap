@@ -158,6 +158,13 @@ export default function TableRadcheck() {
         </div>
       );
     }
+    if (tableRows.length === 0) {
+      return (
+        <div>
+          <p className="text-center">No Result</p>
+        </div>
+      );
+    }
     return null;
   }
 
@@ -204,8 +211,6 @@ export default function TableRadcheck() {
       </div>
       {/* End Of Search Bar */}
 
-      {/* Render Loading Spinner */}
-      {renderLoading()}
       <div className="table-responsive">
         <table className="table table-hover">
           {/* Table Head */}
@@ -233,6 +238,7 @@ export default function TableRadcheck() {
               })}
             </tr>
           </thead>
+
           <tbody>
             {/* Table Rows */}
             {tableRows.map((item) => (
@@ -261,6 +267,8 @@ export default function TableRadcheck() {
             ))}
           </tbody>
         </table>
+        {/* Render Loading Spinner */}
+        {renderLoading()}
       </div>
       <br />
       {/* Pagination  */}

@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
+import EditService from "../../components/form/EditService";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -211,6 +212,8 @@ export default function UserDetail({ queryID }) {
             modal_title="Change Service"
             button_name="Change Service"
             modal_id="change-service"
+            modal_content={<EditService data={data.data.user}></EditService>}
+            // onClickAction={()=> }
           ></Modal>
 
           <Modal
