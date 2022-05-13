@@ -21,7 +21,7 @@ export default function Modal({
       </button>
       {/* Modal */}
       <div
-        className="modal fade"
+        className="modal modal-blur fade"
         id={modal_id}
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"

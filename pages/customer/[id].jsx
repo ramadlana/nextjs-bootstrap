@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
-import NavbarMember from "../../components/NavbarMember";
 
 import Modal from "../../components/Modal";
 import EditUser from "../../components/form/EditUser";
@@ -55,7 +53,6 @@ export default function UserDetail({ queryID }) {
   if (!data)
     return (
       <>
-        <Navbar></Navbar>
         <div className="container">
           <button className="btn btn-primary" type="button" disabled>
             <span
@@ -76,7 +73,6 @@ export default function UserDetail({ queryID }) {
   if (data.status === 401)
     return (
       <>
-        <Navbar></Navbar>
         <div className="container">
           <div className="alert alert-warning" role="alert">
             You dont have permission to access this page: {data.data.message}
@@ -96,7 +92,6 @@ export default function UserDetail({ queryID }) {
   if (!data.status)
     return (
       <div>
-        <Navbar />
         <div className="container">
           <h2>
             Failed {data.message} {data.config.url}
@@ -145,7 +140,6 @@ export default function UserDetail({ queryID }) {
 
     return (
       <>
-        <NavbarMember></NavbarMember>
         <ToastContainer />
         <div className="container">
           <h5>User details</h5>

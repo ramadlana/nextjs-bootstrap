@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 const axios = require("axios");
 import Router from "next/router";
-import Navbar from "../../components/Navbar";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -60,48 +59,69 @@ export default function Login() {
   );
   return (
     <div>
-      <Navbar></Navbar>
       <ToastContainer />
       <div className="container">
-        <div className="row">
-          <div className="col 8">
-            <h4>Please Login to access</h4>
-            <p>default user password:</p>
-            <p>Username: superadmin Password: superadmin</p>
-          </div>
-          <div className="col-4">
-            <div className="mb-3">
-              <label className="form-label">username</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter username"
-                ref={usernameRef}
-                required
-              />
+        <div className="page page-center">
+          <div className="container-tight py-4">
+            <div className="text-center mb-4">
+              <a href=".">
+                <img src="/static/logo.svg" height={36} alt />
+              </a>
             </div>
-            <div className="mb-2">
-              <label className="form-label">Password</label>
-              <div className="input-group input-group-flat">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  autoComplete="off"
-                  ref={passwordRef}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>{buttonLoading}</div>
-            <p className="text-center mt-2">or Register here.</p>
-            <button
-              className="btn btn-primary w-100"
-              onClick={() => Router.push("/user/register")}
+            <form
+              className="card card-md"
+              action="."
+              method="get"
+              autoComplete="off"
             >
-              Register
-            </button>
+              <div className="card-body">
+                <h2 className="card-title text-center mb-4">
+                  Login to your account
+                </h2>
+                <p>Username: superadmin Password: superadmin</p>
+                <div className="mb-3">
+                  <label className="form-label">username</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter username"
+                    ref={usernameRef}
+                    required
+                  />
+                </div>
+                <div className="mb-2">
+                  <label className="form-label">Password</label>
+                  <div className="input-group input-group-flat">
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Password"
+                      autoComplete="off"
+                      ref={passwordRef}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-2">
+                  <label className="form-check">
+                    <input type="checkbox" className="form-check-input" />
+                    <span className="form-check-label">
+                      Remember me on this device
+                    </span>
+                  </label>
+                </div>
+                <div className="form-footer">{buttonLoading}</div>
+              </div>
+              <div className="hr-text">or</div>
+              <div className="card-body">
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={() => Router.push("/user/register")}
+                >
+                  Register
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

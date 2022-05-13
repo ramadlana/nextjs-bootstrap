@@ -1,10 +1,19 @@
-import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Layout from "../components/Layout";
+import { useRouter } from "next/router";
 
 function RootApp({ Component, pageProps }) {
+  const listNoLayout = ["/user/login", "/", "/user/register"];
+  const router = useRouter();
   return (
     <>
-      <Component {...pageProps} />
+      {listNoLayout.includes(router.pathname) ? (
+        <Component {...pageProps} />
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </>
   );
 }

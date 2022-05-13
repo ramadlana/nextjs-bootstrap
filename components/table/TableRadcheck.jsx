@@ -174,7 +174,7 @@ export default function TableRadcheck() {
       {/* Search Bar */}
       <div className="input-group input-group-sm mb-3">
         <button
-          className="btn btn-outline-secondary dropdown-toggle"
+          className="btn btn-outline-primary dropdown-toggle"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -212,7 +212,7 @@ export default function TableRadcheck() {
       {/* End Of Search Bar */}
 
       <div className="table-responsive">
-        <table className="table table-hover">
+        <table className="table table-vcenter card-table">
           {/* Table Head */}
           <thead>
             <tr>
@@ -278,7 +278,7 @@ export default function TableRadcheck() {
       </p>
 
       <nav aria-label="Page navigation example">
-        <ul className="pagination">
+        <ul className="pagination m-0 ms-auto">
           <li className="page-item">
             <a
               className="page-link"

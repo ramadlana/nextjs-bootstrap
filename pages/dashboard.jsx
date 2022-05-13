@@ -1,13 +1,12 @@
 import useSWR from "swr";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-import NavbarMember from "../components/NavbarMember";
 import TableRadcheck from "../components/table/TableRadcheck";
 import Modal from "../components/Modal";
 import AddSubsForm from "../components/form/AddSubs";
 import { useStore } from "../state/globalState";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -17,10 +16,11 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function Dashboard() {
+  const router = useRouter();
   const setDataAddSubs = useStore((state) => state.setAddSubsFormState);
   const dataAddSubs = useStore((state) => state.addSubsFormState);
-  // Load localstorage key from next JS is unique
-  // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
+  // Load localstorage
+  // Next JS is server rendered component in first , to localstorage is not available, because localstorage is browser only
   let access_token;
   if (typeof window !== "undefined") {
     // Perform localStorage action
@@ -46,7 +46,7 @@ export default function Dashboard() {
     toast.info("Submitting data..");
     // window.alert(JSON.stringify(data));
     try {
-      const sendData = await axios.post(
+      await axios.post(
         `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
         { data: data },
         {
@@ -74,9 +74,8 @@ export default function Dashboard() {
   if (!data)
     return (
       <>
-        <Navbar></Navbar>
         <div className="container">
-          <button className="btn btn-primary" type="button" disabled>
+          <button className="btn btn-primary" type="button">
             <span
               className="spinner-border spinner-border-sm mx-3 "
               role="status"
@@ -89,30 +88,12 @@ export default function Dashboard() {
     );
 
   // If return status code 401 Unauthorized
-  if (data.status === 401)
-    return (
-      <>
-        <Navbar></Navbar>
-        <div className="container">
-          <div className="alert alert-warning" role="alert">
-            {data.data.message}
-          </div>
-
-          <button
-            className="btn btn-primary"
-            onClick={() => (window.location.href = "/user/login")}
-          >
-            Sign in to Access
-          </button>
-        </div>
-      </>
-    );
+  if (data.status === 401) router.push("/user/login");
 
   // If not have status code. for Ex: network error / Others Error
   if (!data.status)
     return (
       <div>
-        <Navbar />
         <div className="container">
           <h2>
             Failed {data.message} {data.config.url}
@@ -124,11 +105,12 @@ export default function Dashboard() {
   // If return status code 200 Authorized
   if (data.status === 200)
     return (
-      <div>
-        <ToastContainer />
-        <NavbarMember />
-        <div className="container">
-          <h3>Dashboard</h3>
+      <div className="card">
+        <div className="card-header">
+          <h1 className="card-title">Dashboard</h1>
+        </div>
+        <div className="card-body">
+          <ToastContainer />
           <div className="alert alert-success" role="alert">
             {data.data.message}
           </div>

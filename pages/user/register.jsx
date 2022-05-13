@@ -44,7 +44,7 @@ export default function Register() {
             : "error when authenticating to server"
         );
       }
-    } else toast.error("password not match");
+    } else toast.error("password and password confirmation not match");
   };
 
   const buttonLoading = loading ? (
@@ -63,60 +63,85 @@ export default function Register() {
   );
   return (
     <div>
-      <Navbar></Navbar>
       <ToastContainer />
+      <div className="container">
+        <div className="page page-center">
+          <div className="container-tight py-4">
+            <div className="text-center mb-4">
+              <a href=".">
+                <img src="/static/logo.svg" height={36} alt />
+              </a>
+            </div>
+            <form
+              className="card card-md"
+              action="."
+              method="get"
+              autoComplete="off"
+            >
+              <div className="card-body">
+                <h2 className="card-title text-center mb-4">
+                  Create new account
+                </h2>
+
+                <div className="mb-3">
+                  <label className="form-label">username</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter username"
+                    ref={usernameRef}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter email"
+                    ref={emailRef}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Password</label>
+                  <div className="input-group input-group-flat">
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Password"
+                      autoComplete="off"
+                      ref={passwordRef}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Re enter Password</label>
+                  <div className="input-group input-group-flat">
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="re enter password"
+                      autoComplete="off"
+                      ref={passwordConfirmRef}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-footer">{buttonLoading}</div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div className="container">
         <div className="row">
           <div className="col 8">Register</div>
           <div className="col-4">
-            <div className="mb-3">
-              <label className="form-label">username</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter username"
-                ref={usernameRef}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">email</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter email"
-                ref={emailRef}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <div className="input-group input-group-flat">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  autoComplete="off"
-                  ref={passwordRef}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Re enter Password</label>
-              <div className="input-group input-group-flat">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="re enter password"
-                  autoComplete="off"
-                  ref={passwordConfirmRef}
-                  required
-                />
-              </div>
-            </div>
-
             <div>{buttonLoading}</div>
           </div>
         </div>
