@@ -4,6 +4,7 @@ import Router from "next/router";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -66,7 +67,7 @@ export default function Login() {
             <div className="text-center mb-4">
               <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href=".">
-                  <img
+                  <Image
                     src="/static/logo-small.svg"
                     width={110}
                     height={32}

@@ -7,6 +7,7 @@ import { useStore } from "../state/globalState";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import DashboardCounter from "../components/widget/DashboardCounter";
 
 // Fethcer Axios
 const fetcherAxios = async (...args) =>
@@ -109,6 +110,7 @@ export default function Dashboard() {
         <div className="card-header">
           <h1 className="card-title">Dashboard</h1>
         </div>
+        <DashboardCounter></DashboardCounter>
         <div className="card-body">
           <ToastContainer />
           <div className="alert alert-success" role="alert">

@@ -9,7 +9,7 @@ export default function TableRadcheck() {
     searchString: "",
     sort: { sortBy: "id", sortMethod: "asc" },
     page: 1,
-    maxPerpage: 10,
+    maxPerpage: 15,
     tableHead: [
       { headTitle: "ID", headKey: "id" },
       { headTitle: "Username", headKey: "username" },
@@ -52,7 +52,12 @@ export default function TableRadcheck() {
         setErr(err.message);
         setLoading(false);
       });
-  }, []);
+  }, [
+    defaultTableConf.maxPerpage,
+    defaultTableConf.page,
+    defaultTableConf.sort.sortBy,
+    defaultTableConf.sort.sortMethod,
+  ]);
 
   // Get data when page already load - For pagination and other
   function getData(route_params) {
@@ -268,25 +273,43 @@ export default function TableRadcheck() {
         {/* Render Loading Spinner */}
         {renderLoading()}
       </div>
-      <br />
-      {/* Pagination  */}
-      <p>
-        Displaying Page: {tableConf.page} - Sort By : {tableConf.sort.sortBy}{" "}
-        {tableConf.sort.sortMethod}
-      </p>
 
-      <nav aria-label="Page navigation example">
+      <div className="card-footer d-flex align-items-center">
+        <p className="m-0 text-muted">
+          Displaying {tableConf.maxPerpage} data | Page: {tableConf.page} |
+          sorty by : {tableConf.sort.sortBy} | method:{" "}
+          {tableConf.sort.sortMethod}
+        </p>
         <ul className="pagination m-0 ms-auto">
-          <li className="page-item">
-            <a
-              className="page-link"
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePagination("prev")}
-            >
-              Previous
+          <li
+            className="page-item disabled"
+            onClick={() => handlePagination("prev")}
+            style={{ cursor: "pointer" }}
+          >
+            <a className="page-link" tabIndex={-1} aria-disabled="true">
+              {/* Download SVG icon from http://tabler-icons.io/i/chevron-left */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <desc>
+                  Download more icon variants from
+                  https://tabler-icons.io/i/chevron-left
+                </desc>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <polyline points="15 6 9 12 15 18" />
+              </svg>
+              prev
             </a>
           </li>
-
           {[1, 2, 3, 4, 5, 6].map((num) => {
             return (
               <li className="page-item" key={num}>
@@ -300,19 +323,37 @@ export default function TableRadcheck() {
               </li>
             );
           })}
-
-          <li className="page-item">
-            <a
-              className="page-link"
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePagination("next")}
-            >
-              Next
+          <li
+            className="page-item"
+            onClick={() => handlePagination("next")}
+            style={{ cursor: "pointer" }}
+          >
+            <a className="page-link">
+              next{" "}
+              {/* Download SVG icon from http://tabler-icons.io/i/chevron-right */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <desc>
+                  Download more icon variants from
+                  https://tabler-icons.io/i/chevron-right
+                </desc>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
             </a>
           </li>
         </ul>
-      </nav>
-      {/* End Of Pagination */}
+      </div>
     </div>
   );
 }

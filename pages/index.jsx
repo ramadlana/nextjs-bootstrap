@@ -13,7 +13,7 @@ export default function Home() {
           accusamus, voluptatibus exercitationem, vero nemo! Veritatis eveniet
           vero exercitationem quaerat maxime repellendus temporibus nobis!
         </p>
-        <Link href="/dashboard">
+        <Link href="/dashboard" passHref>
           <button className="btn btn-primray">Go Dashboard</button>
         </Link>
       </div>
