@@ -107,13 +107,14 @@ export default function Layout({ children }) {
             <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
               <a href=".">
                 <img
-                  src="/static/logo.svg"
+                  src="/static/logo-small.svg"
                   width={110}
                   height={32}
                   alt="Tabler"
                   className="navbar-brand-image"
                 />
               </a>
+              <span className="ms-2">Net Manager v1.0</span>
             </h1>
             <div className="navbar-nav flex-row order-md-last">
               <div className="nav-item d-none d-md-flex me-3">

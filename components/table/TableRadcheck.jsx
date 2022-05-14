@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import _ from "lodash";
 import Link from "next/link";
-
 import dayjs from "dayjs";
 
 export default function TableRadcheck() {
@@ -203,7 +201,7 @@ export default function TableRadcheck() {
           ref={searchInputRef}
         />
         <button
-          className="btn btn-primary"
+          className="btn btn-outline-primary"
           onClick={() => handleSearchInput(searchInputRef.current.value)}
         >
           Search
@@ -289,7 +287,7 @@ export default function TableRadcheck() {
             </a>
           </li>
 
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+          {[1, 2, 3, 4, 5, 6].map((num) => {
             return (
               <li className="page-item" key={num}>
                 <a
