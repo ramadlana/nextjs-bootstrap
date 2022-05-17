@@ -106,27 +106,31 @@ export default function Dashboard() {
   // If return status code 200 Authorized
   if (data.status === 200)
     return (
-      <div className="card">
-        <div className="card-header">
-          <h1 className="card-title">Dashboard</h1>
-        </div>
+      <>
         <DashboardCounter></DashboardCounter>
-        <div className="card-body">
-          <ToastContainer />
-          <div className="alert alert-success" role="alert">
-            {data.data.message}
+
+        <div className="card mt-3">
+          <div className="card-header">
+            <h1 className="card-title">Customer List</h1>
           </div>
-          <Modal
-            modal_id="add-user"
-            button_name="Add Subscriber"
-            modal_title="Add Subscriber Form"
-            modal_content={<AddSubsForm></AddSubsForm>}
-            onClickAction={() => handleSubmit(dataAddSubs)}
-            button_init_click={handleInitClickModal}
-          ></Modal>
-          <div className="m-3"></div>
-          <TableRadcheck></TableRadcheck>
+
+          <div className="card-body">
+            <ToastContainer />
+            <div className="alert alert-success" role="alert">
+              {data.data.message}
+            </div>
+            <Modal
+              modal_id="add-user"
+              button_name="Add Subscriber"
+              modal_title="Add Subscriber Form"
+              modal_content={<AddSubsForm></AddSubsForm>}
+              onClickAction={() => handleSubmit(dataAddSubs)}
+              button_init_click={handleInitClickModal}
+            ></Modal>
+            <div className="m-3"></div>
+            <TableRadcheck></TableRadcheck>
+          </div>
         </div>
-      </div>
+      </>
     );
 }

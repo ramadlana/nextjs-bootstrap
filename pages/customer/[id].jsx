@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
 import EditService from "../../components/form/EditService";
+import GeneratePayment from "../../components/form/GeneratePayment";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -26,6 +27,9 @@ export default function UserDetail({ queryID }) {
   const { back } = useRouter();
   // Zustand state consume
   const formData = useStore((state) => state.addSubsFormState);
+  // backup form data, in case failur, set state to this backup
+  const backup_form_data = { ...formData };
+  const setFormData = useStore((state) => state.setAddSubsFormState);
 
   // Load localstorage key from next JS is unique
   // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
@@ -113,6 +117,7 @@ export default function UserDetail({ queryID }) {
       first_name: formData.first_name,
       last_name: formData.last_name,
       phone: formData.phone,
+      services_id: formData.services_id,
     };
     toast.info("Editing Data.. Please wait");
     try {
@@ -128,12 +133,14 @@ export default function UserDetail({ queryID }) {
       );
       toast.success(resp.data.message);
     } catch (error) {
+      setFormData(backup_form_data);
       toast.error(error.response.data.message);
     }
   };
 
   // If return status code 200 Authorized
   if (data.status === 200) {
+    setFormData(data.data.user);
     const date_str = dayjs(data.data.user.expirydate).format(
       "DD-MM-YYYY HH:mm:ss WIB"
     );
@@ -141,83 +148,101 @@ export default function UserDetail({ queryID }) {
     return (
       <>
         <ToastContainer />
-        <div className="container">
-          <h5>User details</h5>
-          <table className="table table-hover">
-            <thead></thead>
-            <tbody>
-              <tr>
-                <td>Username</td>
-                <td>{data.data.user.username} </td>
-              </tr>
-              <tr>
-                <td>First Name</td>
-                <td>{data.data.user.first_name} </td>
-              </tr>
-              <tr>
-                <td>Last Name</td>
-                <td>{data.data.user.last_name} </td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>{data.data.user.email} </td>
-              </tr>
-              <tr>
-                <td>Address</td>
-                <td>{data.data.user.address} </td>
-              </tr>
-              <tr>
-                <td>Phone</td>
-                <td>{data.data.user.phone} </td>
-              </tr>
-              <tr>
-                <td>Service Name</td>
-                <td>{data.data.user.app_service.service_name} </td>
-              </tr>
-              <tr>
-                <td>Service Status</td>
-                <td>{data.data.user.service_status} </td>
-              </tr>
+        <div className="card">
+          <div className="card-header">
+            <h1 className="card-title">User details</h1>
+          </div>
 
-              <tr>
-                <td>Service Radius Group</td>
-                <td>{data.data.user.radusergroup.groupname}</td>
-              </tr>
+          <div className="card-body">
+            <table className="table table-hover">
+              <thead></thead>
+              <tbody>
+                <tr>
+                  <td>Username</td>
+                  <td>{formData.username} </td>
+                </tr>
+                <tr>
+                  <td>First Name</td>
+                  <td>{formData.first_name} </td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>{formData.last_name} </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>{formData.email} </td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{formData.address} </td>
+                </tr>
+                <tr>
+                  <td>Phone</td>
+                  <td>{formData.phone} </td>
+                </tr>
+                <tr>
+                  <td>Service Name</td>
+                  <td>{formData?.services_id} </td>
+                </tr>
+                <tr>
+                  <td>Service Status</td>
+                  <td>{formData.service_status} </td>
+                </tr>
 
-              <tr>
-                <td>Service Ammount</td>
-                <td>IDR {data.data.user.app_service.service_ammount}</td>
-              </tr>
+                <tr>
+                  <td>Service Radius Group</td>
+                  <td>{formData?.radusergroup?.groupname}</td>
+                </tr>
 
-              <tr>
-                <td>Service Expiry Date</td>
-                <td>{date_str} </td>
-              </tr>
-            </tbody>
-          </table>
-          <Modal
-            modal_id="edit-data"
-            button_name="Edit Data"
-            modal_title="Edit Data"
-            modal_content={<EditUser data={data.data.user}></EditUser>}
-            onClickAction={() => handleSubmitEditUser()}
-          ></Modal>
-          <Modal
-            modal_title="Change Service"
-            button_name="Change Service"
-            modal_id="change-service"
-            modal_content={<EditService data={data.data.user}></EditService>}
-            // onClickAction={()=> }
-          ></Modal>
+                <tr>
+                  <td>Service Ammount</td>
+                  <td>IDR {formData?.app_service?.service_ammount}</td>
+                </tr>
 
-          <Modal
-            modal_id="payment-history"
-            button_name="Payment History"
-            modal_title="Payment History"
-          ></Modal>
-          <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
-            Back
-          </button>
+                <tr>
+                  <td>Service Expiry Date</td>
+                  <td>{date_str} </td>
+                </tr>
+              </tbody>
+            </table>
+            <Modal
+              modal_id="edit-data"
+              button_name="Edit Data"
+              modal_title="Edit Data"
+              modal_content={<EditUser data={data.data.user}></EditUser>}
+              onClickAction={() => handleSubmitEditUser()}
+            ></Modal>
+            <Modal
+              modal_title="Change Service"
+              button_name="Change Service"
+              modal_id="change-service"
+              modal_content={<EditService data={data.data.user}></EditService>}
+              onClickAction={() => handleSubmitEditUser()}
+            ></Modal>
+
+            <Modal
+              modal_id="payment-history"
+              button_name="Payment History"
+              modal_title="Payment History"
+            ></Modal>
+
+            <Modal
+              modal_id="generate-payment"
+              button_name="Generate Payment"
+              modal_title="Generate Payment"
+              modal_content={
+                <GeneratePayment
+                  cid={queryID}
+                  access_token={access_token}
+                ></GeneratePayment>
+              }
+            ></Modal>
+
+            <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
+              Back
+            </button>
+          </div>
         </div>
       </>
     );

@@ -37,7 +37,6 @@ export default function Register() {
         Router.replace("/dashboard");
       } catch (err) {
         setLoading(false);
-        console.log(err.response);
         toast.error(
           err.response.data.error
             ? err.response.data.error

@@ -12,6 +12,8 @@ export default function EditService({ data }) {
     let copyData = { ...data };
     copyData[input.id] = input.value;
     data[input.id] = copyData[input.id];
+    if (input["id"] === "services_id")
+      copyData["radusergroup"]["groupname"] = input.value;
     setFormData(copyData);
   }
 
@@ -43,46 +45,27 @@ export default function EditService({ data }) {
     <>
       <form id="modal-form">
         <div className="row">
-          <div className="col-6">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              type="text"
-              className="form-control mb-3"
-              id="username"
-              value={data.username}
-              onChange={(element) => inputHandler(element.currentTarget)}
-            />
-
-            <label htmlFor="first_name" className="form-label">
-              First Name
-            </label>
-            <input
-              type="text"
-              className="form-control mb-3"
-              id="first_name"
-              value={data.first_name}
-              onChange={(element) => inputHandler(element.currentTarget)}
-            />
-
-            <label htmlFor="last_name" className="form-label">
-              Last Name
-            </label>
-            <input
-              type="text"
-              className="form-control mb-3"
-              id="last_name"
-              value={data.last_name}
-              onChange={(element) => inputHandler(element.currentTarget)}
-            />
-            <label htmlFor="service" className="form-label">
-              Service
-            </label>
+          <div className="col-12">
+            <table className="table table-vcenter">
+              <tbody>
+                <tr>
+                  <td>Username</td>
+                  <td>{data?.username}</td>
+                </tr>
+                <tr>
+                  <td>Change To</td>
+                  <td>{data?.services_id}</td>
+                </tr>
+                <tr>
+                  <td>Ammount </td>
+                  <td>{data?.app_service?.service_ammount}</td>
+                </tr>
+              </tbody>
+            </table>
             <select
               className="form-select"
               aria-label="Default select example"
-              id="service"
+              id="services_id"
               onChange={(element) => inputHandler(element.currentTarget)}
               onClick={getServices}
             >

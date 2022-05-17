@@ -15,10 +15,10 @@ export default function TableRadcheck() {
       { headTitle: "Username", headKey: "username" },
       { headTitle: "Expiry Date", headKey: "expirydate" },
       { headTitle: "Email", headKey: "email" },
-      { headTitle: "Address", headKey: "address" },
       { headTitle: "First Name", headKey: "first_name" },
       { headTitle: "Last Name", headKey: "last_name" },
       { headTitle: "Phone", headKey: "phone" },
+      { headTitle: "Address", headKey: "address" },
     ],
   };
 
@@ -215,7 +215,7 @@ export default function TableRadcheck() {
       {/* End Of Search Bar */}
 
       <div className="table-responsive">
-        <table className="table table-vcenter card-table">
+        <table className="table table-vcenter card-table table-nowrap">
           {/* Table Head */}
           <thead>
             <tr>
@@ -250,7 +250,7 @@ export default function TableRadcheck() {
                 <td>
                   <Link href={`/customer/${item.id}`}>
                     <a>
-                      <span className="badge rounded-pill bg-secondary ">
+                      <span className="badge badge-outline text-blue">
                         {item.id}
                       </span>
                     </a>
@@ -262,10 +262,10 @@ export default function TableRadcheck() {
                   {dayjs(item.expirydate).format("DD-MM-YYYY HH:mm:ss WIB")}
                 </td>
                 <td>{item.email}</td>
-                <td>{item.address}</td>
                 <td>{item.first_name}</td>
                 <td>{item.last_name}</td>
                 <td>{item.phone}</td>
+                <td>{item.address}</td>
               </tr>
             ))}
           </tbody>
