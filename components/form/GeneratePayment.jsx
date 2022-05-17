@@ -29,7 +29,7 @@ export default function GeneratePayment({ cid, access_token }) {
     if (url)
       return (
         <Link href={url.data.transactionDetail.redirect_url}>
-          <a target="_blank" className="btn btn-success btn-pill">
+          <a className="btn btn-success btn-pill">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-cash"

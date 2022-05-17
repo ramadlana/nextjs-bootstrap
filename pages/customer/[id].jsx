@@ -13,6 +13,8 @@ import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
 import EditService from "../../components/form/EditService";
 import GeneratePayment from "../../components/form/GeneratePayment";
+import PaymentHistory from "../../components/form/PaymentHistory";
+import ModalNoFooter from "../../components/ModalNoFooter";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -30,6 +32,10 @@ export default function UserDetail({ queryID }) {
   // backup form data, in case failur, set state to this backup
   const backup_form_data = { ...formData };
   const setFormData = useStore((state) => state.setAddSubsFormState);
+
+  // Payment History State
+
+  const set_payment_history = useStore((state) => state.set_payment_history);
 
   // Load localstorage key from next JS is unique
   // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
@@ -52,6 +58,8 @@ export default function UserDetail({ queryID }) {
     ],
     fetcherAxios
   );
+
+  // setFormData(data?.data?.user);
 
   // If data not received yet (loading in fetch)
   if (!data)
@@ -138,9 +146,28 @@ export default function UserDetail({ queryID }) {
     }
   };
 
+  // handle button init payment history
+  const handlePaymentHistoryInit = async () => {
+    try {
+      const resp = await axios.get(
+        `${process.env.BACKEND_SERVER}/dashboard/payment-history/${queryID}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access_token": access_token,
+          },
+        }
+      );
+
+      set_payment_history(resp.data);
+    } catch (error) {
+      setFormData(backup_form_data);
+      toast.error(error.response.data.message);
+    }
+  };
+
   // If return status code 200 Authorized
   if (data.status === 200) {
-    setFormData(data.data.user);
     const date_str = dayjs(data.data.user.expirydate).format(
       "DD-MM-YYYY HH:mm:ss WIB"
     );
@@ -159,45 +186,45 @@ export default function UserDetail({ queryID }) {
               <tbody>
                 <tr>
                   <td>Username</td>
-                  <td>{formData.username} </td>
+                  <td>{data.data.user.username} </td>
                 </tr>
                 <tr>
                   <td>First Name</td>
-                  <td>{formData.first_name} </td>
+                  <td>{data.data.user.first_name} </td>
                 </tr>
                 <tr>
                   <td>Last Name</td>
-                  <td>{formData.last_name} </td>
+                  <td>{data.data.user.last_name} </td>
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>{formData.email} </td>
+                  <td>{data.data.user.email} </td>
                 </tr>
                 <tr>
                   <td>Address</td>
-                  <td>{formData.address} </td>
+                  <td>{data.data.user.address} </td>
                 </tr>
                 <tr>
                   <td>Phone</td>
-                  <td>{formData.phone} </td>
+                  <td>{data.data.user.phone} </td>
                 </tr>
                 <tr>
                   <td>Service Name</td>
-                  <td>{formData?.services_id} </td>
+                  <td>{data.data.user?.services_id} </td>
                 </tr>
                 <tr>
                   <td>Service Status</td>
-                  <td>{formData.service_status} </td>
+                  <td>{data.data.user.service_status} </td>
                 </tr>
 
                 <tr>
                   <td>Service Radius Group</td>
-                  <td>{formData?.radusergroup?.groupname}</td>
+                  <td>{data.data.user?.radusergroup?.groupname}</td>
                 </tr>
 
                 <tr>
                   <td>Service Ammount</td>
-                  <td>IDR {formData?.app_service?.service_ammount}</td>
+                  <td>IDR {data.data.user?.app_service?.service_ammount}</td>
                 </tr>
 
                 <tr>
@@ -221,11 +248,13 @@ export default function UserDetail({ queryID }) {
               onClickAction={() => handleSubmitEditUser()}
             ></Modal>
 
-            <Modal
+            <ModalNoFooter
               modal_id="payment-history"
               button_name="Payment History"
               modal_title="Payment History"
-            ></Modal>
+              modal_content={<PaymentHistory></PaymentHistory>}
+              button_init_click={handlePaymentHistoryInit}
+            ></ModalNoFooter>
 
             <Modal
               modal_id="generate-payment"

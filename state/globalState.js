@@ -49,6 +49,10 @@ const useStore = create((set) => ({
   // add subs form state
   addSubsFormState: {},
   setAddSubsFormState: (data) => set({ addSubsFormState: data }),
+
+  // Payment History
+  payment_history: [],
+  set_payment_history: (data) => set({ payment_history: data }),
 }));
 
 // You can create another store useCustomStore here, and dont forget to export it
