@@ -84,7 +84,7 @@ export default function AddSubsForm() {
             />
 
             <label htmlFor="retype_password" className="form-label">
-              Retype Password
+              Password Confirmation
             </label>
             <input
               type="password"

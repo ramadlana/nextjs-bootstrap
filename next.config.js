@@ -7,7 +7,7 @@ const nextConfig = {
   env: {
     // without /
     BACKEND_SERVER: "http://localhost:8000",
-    // BACKEND_SERVER: "https://98ec-125-166-117-131.ngrok.io",
+    // BACKEND_SERVER: "https://80ac-125-166-117-131.ngrok.io",
     // BACKEND_SERVER: "http://192.168.16.99:8000",
   },
 };

@@ -18,7 +18,73 @@ export default function PaymentHistory({ data }) {
     setFormData(copyData);
   }
 
-  if (payment_history.length === 0) return <h5>Loading</h5>;
+  if (payment_history.length === 0)
+    return (
+      <div className="card">
+        <ul className="list-group list-group-flush placeholder-glow">
+          <li className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <div className="avatar avatar-rounded placeholder" />
+              </div>
+              <div className="col-7">
+                <div className="placeholder placeholder-xs col-9" />
+                <div className="placeholder placeholder-xs col-7" />
+              </div>
+              <div className="col-2 ms-auto text-end">
+                <div className="placeholder placeholder-xs col-8" />
+                <div className="placeholder placeholder-xs col-10" />
+              </div>
+            </div>
+          </li>
+          <li className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <div className="avatar avatar-rounded placeholder" />
+              </div>
+              <div className="col-7">
+                <div className="placeholder placeholder-xs col-9" />
+                <div className="placeholder placeholder-xs col-7" />
+              </div>
+              <div className="col-2 ms-auto text-end">
+                <div className="placeholder placeholder-xs col-8" />
+                <div className="placeholder placeholder-xs col-10" />
+              </div>
+            </div>
+          </li>
+          <li className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <div className="avatar avatar-rounded placeholder" />
+              </div>
+              <div className="col-7">
+                <div className="placeholder placeholder-xs col-9" />
+                <div className="placeholder placeholder-xs col-7" />
+              </div>
+              <div className="col-2 ms-auto text-end">
+                <div className="placeholder placeholder-xs col-8" />
+                <div className="placeholder placeholder-xs col-10" />
+              </div>
+            </div>
+          </li>
+          <li className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <div className="avatar avatar-rounded placeholder" />
+              </div>
+              <div className="col-7">
+                <div className="placeholder placeholder-xs col-9" />
+                <div className="placeholder placeholder-xs col-7" />
+              </div>
+              <div className="col-2 ms-auto text-end">
+                <div className="placeholder placeholder-xs col-8" />
+                <div className="placeholder placeholder-xs col-10" />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    );
 
   return (
     <>

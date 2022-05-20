@@ -53,6 +53,7 @@ export default function EditUser({ data }) {
               id="username"
               value={data.username}
               onChange={(element) => inputHandler(element.currentTarget)}
+              readOnly
             />
 
             <label htmlFor="first_name" className="form-label">

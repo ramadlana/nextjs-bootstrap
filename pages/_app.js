@@ -5,7 +5,12 @@ import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 
 function RootApp({ Component, pageProps }) {
-  const listNoLayout = ["/user/login", "/user/register"];
+  const listNoLayout = [
+    "/user/login",
+    "/user/register",
+    "/customer",
+    "/customer/me",
+  ];
   const router = useRouter();
   return (
     <>

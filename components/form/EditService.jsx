@@ -14,6 +14,7 @@ export default function EditService({ data }) {
     data[input.id] = copyData[input.id];
     if (input["id"] === "services_id")
       copyData["radusergroup"]["groupname"] = input.value;
+    copyData["isChangeService"] = true;
     setFormData(copyData);
   }
 

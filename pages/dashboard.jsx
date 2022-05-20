@@ -46,21 +46,24 @@ export default function Dashboard() {
   const handleSubmit = async (data) => {
     toast.info("Submitting data..");
     // window.alert(JSON.stringify(data));
-    try {
-      await axios.post(
-        `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
-        { data: data },
-        {
-          headers: {
-            "x-access_token": access_token,
-          },
-        }
-      );
-      toast.success("Success add new user");
-    } catch (error) {
-      if (error.response) return toast.error(error.response.data.message);
-      toast.error(error.message);
-    }
+    if (data.password === data.retype_password) {
+      try {
+        const resp = await axios.post(
+          `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
+          { data: data },
+          {
+            headers: {
+              "x-access_token": access_token,
+            },
+          }
+        );
+        toast.success("Success add new user");
+        toast.info(`Send WA-NOTIF: ${resp.data.message}`);
+      } catch (error) {
+        if (error.response) return toast.error(error.response.data.message);
+        toast.error(error.message);
+      }
+    } else toast.error("Password and Password Confirmation not match");
   };
 
   // Clear DataAddSubs every button modal clicked
