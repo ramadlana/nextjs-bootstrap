@@ -275,11 +275,8 @@ export default function TableRadcheck() {
       </div>
 
       <div className="card-footer d-flex align-items-center">
-        <p className="m-0 text-muted">
-          Displaying {tableConf.maxPerpage} data | Page: {tableConf.page} |
-          sorty by : {tableConf.sort.sortBy} | method:{" "}
-          {tableConf.sort.sortMethod}
-        </p>
+        <p className="m-0 text-muted">Displaying {tableConf.maxPerpage} data</p>
+
         <ul className="pagination m-0 ms-auto">
           <li
             className="page-item disabled"
@@ -354,6 +351,10 @@ export default function TableRadcheck() {
           </li>
         </ul>
       </div>
+      <p className="m-0 text-muted">Page: {tableConf.page}</p>
+      <p className="m-0 text-muted">
+        sorty by : {tableConf.sort.sortBy} | method: {tableConf.sort.sortMethod}
+      </p>
     </div>
   );
 }

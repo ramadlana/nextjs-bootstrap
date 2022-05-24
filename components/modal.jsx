@@ -12,7 +12,7 @@ export default function Modal({
       {/* Button trigger modal */}
       <button
         type="button"
-        className="btn btn-primary btn-sm mx-1"
+        className="btn btn-primary btn-sm m-1"
         data-bs-toggle="modal"
         data-bs-target={"#" + modal_id}
         onClick={button_init_click}

@@ -10,6 +10,7 @@ function RootApp({ Component, pageProps }) {
     "/user/register",
     "/customer",
     "/customer/me",
+    "/404",
   ];
   const router = useRouter();
   return (

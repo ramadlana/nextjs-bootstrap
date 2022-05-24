@@ -4,6 +4,11 @@ const nextConfig = {
   images: {
     domains: ["github.com"],
   },
+  compilerOptions: {
+    paths: {
+      "@/components/*": ["components/*"],
+    },
+  },
   env: {
     // without /
     BACKEND_SERVER: "http://localhost:8000",

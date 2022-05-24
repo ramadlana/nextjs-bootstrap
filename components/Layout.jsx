@@ -92,10 +92,17 @@ export default function Layout({ children }) {
     },
   ];
 
-  const menuNavbarDropdown = [
+  const menuNavbarDropdown1 = [
+    {
+      url: "/migrasi",
+      menuTitle: "Migrasi Customer",
+    },
+  ];
+
+  const menuNavbarDropdown2 = [
     {
       url: "/",
-      menuTitle: "#1",
+      menuTitle: "#2",
     },
   ];
 
@@ -347,37 +354,35 @@ export default function Layout({ children }) {
                           <line x1={16} y1="5.25" x2={8} y2="9.75" />
                         </svg>
                       </span>
-                      <span className="nav-link-title">Other</span>
+                      <span className="nav-link-title">Lain</span>
                     </a>
                     <div className="dropdown-menu">
                       <div className="dropdown-menu-columns">
                         <div className="dropdown-menu-column">
-                          <a className="dropdown-item" href="./empty.html">
-                            Empty page
-                          </a>
-                          <a className="dropdown-item" href="./accordion.html">
-                            Accordion
-                          </a>
-                          <a
-                            className="dropdown-item active"
-                            href="./blank.html"
-                          >
-                            Blank page
-                          </a>
-                          <a className="dropdown-item" href="./buttons.html">
-                            Buttons
-                          </a>
+                          {menuNavbarDropdown1.map((menu) => {
+                            return (
+                              <Link href={menu.url} key={menu.url}>
+                                <a className="dropdown-item">
+                                  <span className="nav-link-title">
+                                    {menu.menuTitle}
+                                  </span>
+                                </a>
+                              </Link>
+                            );
+                          })}
                         </div>
                         <div className="dropdown-menu-column">
-                          <a className="dropdown-item" href="./navigation.html">
-                            Navigation
-                          </a>
-                          <a className="dropdown-item" href="./charts.html">
-                            Charts
-                          </a>
-                          <a className="dropdown-item" href="./pagination.html">
-                            Pagination
-                          </a>
+                          {menuNavbarDropdown2.map((menu) => {
+                            return (
+                              <Link href={menu.url} key={menu.url}>
+                                <a className="dropdown-item">
+                                  <span className="nav-link-title">
+                                    {menu.menuTitle}
+                                  </span>
+                                </a>
+                              </Link>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
