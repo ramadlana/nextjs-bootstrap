@@ -1,80 +1,21 @@
 import BodyCardWrapper from "../BodyCardWrapper";
+import { ToastContainer, toast } from "react-toastify";
 
 // ******************************************* AUTH START *******************************************
 import axios from "axios";
-import useSWR from "swr";
+
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function MigrasiSubsForm() {
-  const router = useRouter();
-
   const [selectService, setSelectService] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
-
-  // Fethcer Axios
-  const fetcherAxios = async (...args) =>
-    axios
-      .get(...args)
-      .then((res) => res)
-      .catch((err) => (err.response ? err.response : err));
-
-  // SWR to auth to server
-  const { data, error } = useSWR(
-    [
-      `${process.env.BACKEND_SERVER}/dashboard`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
-        },
-      },
-    ],
-    fetcherAxios
-  );
-
-  // If error Syntax and SWR
-  if (error) return <h1>another error happen: {JSON.stringify(error)}</h1>;
-
-  // If data not received yet (loading in fetch)
-  if (!data)
-    return (
-      <>
-        <div className="progress progress-sm">
-          <div className="progress-bar progress-bar-indeterminate"></div>
-        </div>
-        <div className="d-flex justify-content-center m-2">
-          <p>Authenticating...</p>
-        </div>
-      </>
-    );
-
-  // If return status code 401 Unauthorized
-  if (data.status === 401) router.push("/user/login");
-
-  // If not have status code. for Ex: network error / Others Error
-  if (!data.status)
-    return (
-      <div>
-        <div className="container">
-          <h2>
-            Failed {data.message} {data.config.url}
-          </h2>
-        </div>
-      </div>
-    );
-
-  // ******************************************* AUTH END *******************************************
-  // Bellow is return for aunthenticated user
-  // ******************************************* AUTH END *******************************************
 
   // FORM HANDLER
   function inputHandler(input) {
     let copyFormData = { ...formData };
     copyFormData[input.id] = input.value;
     setFormData(copyFormData);
-    console.log(copyFormData);
   }
 
   async function handleGetServices() {
@@ -101,6 +42,27 @@ export default function MigrasiSubsForm() {
       </option>
     ));
   }
+
+  // Handle Modal button. When submit clicked pass this function
+  const handleSubmit = async (data) => {
+    toast.info("Submitting data..");
+    try {
+      const resp = await axios.post(
+        `${process.env.BACKEND_SERVER}/dashboard/radiususer`,
+        { data: data },
+        {
+          headers: {
+            "x-access_token": localStorage.getItem("access_token"),
+          },
+        }
+      );
+      toast.success(`${resp.data.message}`);
+    } catch (error) {
+      if (error.response) return toast.error(error.response.data.message);
+      toast.error(error.message);
+    }
+  };
+
   // END FORM HANDLER
 
   // RUN IF  data !=null
@@ -209,11 +171,19 @@ export default function MigrasiSubsForm() {
           </div>
         </div>
       </form>
+      <button
+        className="btn btn-primary m-1"
+        onClick={() => handleSubmit(formData)}
+      >
+        Migrate
+      </button>
+      <button className="btn btn-warning m-1">Reset</button>
     </div>
   );
 
   return (
     <>
+      <ToastContainer />
       <BodyCardWrapper
         title="Migrasi Pelanggan"
         content={content}

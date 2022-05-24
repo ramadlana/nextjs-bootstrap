@@ -3,7 +3,7 @@ import axios from "axios";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 
-export default function Auth({ auth_page, url }) {
+export default function AuthWrapper({ auth_page, url }) {
   const router = useRouter();
 
   const fetcherAxios = async (...args) =>

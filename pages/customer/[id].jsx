@@ -15,6 +15,7 @@ import EditService from "../../components/form/EditService";
 import GeneratePayment from "../../components/form/GeneratePayment";
 import PaymentHistory from "../../components/form/PaymentHistory";
 import ModalNoFooter from "../../components/ModalNoFooter";
+import { useEffect } from "react";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -26,6 +27,24 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function UserDetail({ queryID }) {
+  useEffect(() => {
+    //change this to the script source you want to load, for example this is snap.js sandbox env
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    //change this according to your client-key
+    const myMidtransClientKey = "SB-Mid-client-B3x2bO4FeslNUdtZ";
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    // optional if you want to set script attribute
+    // for example snap.js have data-client-key attribute
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
+
   const { back } = useRouter();
   // Zustand state consume
   const formData = useStore((state) => state.addSubsFormState);
@@ -167,6 +186,23 @@ export default function UserDetail({ queryID }) {
     }
   };
 
+  const handlePaySnap = async (cid) => {
+    try {
+      const transaction = await axios.get(
+        `${process.env.BACKEND_SERVER}/dashboard/pay-order-snap?id=${cid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access_token": access_token,
+          },
+        }
+      );
+      window.snap.pay(`${transaction.data.transactionDetail.token}`);
+    } catch (error) {
+      return "error generate payment";
+    }
+  };
+
   // If return status code 200 Authorized
   if (data.status === 200) {
     const date_str = dayjs(data.data.user.expirydate).format(
@@ -269,6 +305,12 @@ export default function UserDetail({ queryID }) {
               }
             ></Modal>
 
+            <button
+              className="btn btn-primary btn-sm mx-1"
+              onClick={() => handlePaySnap(queryID)}
+            >
+              Pay
+            </button>
             <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
               Back
             </button>
