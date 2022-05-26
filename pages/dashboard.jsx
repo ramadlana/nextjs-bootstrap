@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import axios from "axios";
 import TableRadcheck from "../components/table/TableRadcheck";
-import Modal from "../components/Modal";
+import Modal from "../components/modal";
 import AddSubsForm from "../components/form/AddSubs";
 import { useStore } from "../state/globalState";
 import { ToastContainer, toast } from "react-toastify";
