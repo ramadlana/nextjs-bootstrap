@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
 
-import Modal from "../../components/Modal";
+import Modal from "../../components/modal";
 import EditUser from "../../components/form/EditUser";
 import { useStore } from "../../state/globalState";
 

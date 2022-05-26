@@ -3,7 +3,7 @@ import useSWR from "swr";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import Modal from "../../components/Modal";
+import Modal from "../../components/modal";
 import EditUser from "../../components/form/EditUser";
 import { useStore } from "../../state/globalState";
 
