@@ -20,7 +20,7 @@ export default function Login() {
         url: `${process.env.BACKEND_SERVER}/customer/login`,
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
+          "x-access-token": localStorage.getItem("access_token"),
         },
         data: {
           username: usernameRef.current.value,

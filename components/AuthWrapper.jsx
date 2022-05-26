@@ -19,7 +19,7 @@ export default function AuthWrapper({ auth_page, url }) {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
+          "x-access-token": localStorage.getItem("access_token"),
         },
       },
     ],

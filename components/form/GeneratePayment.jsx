@@ -13,7 +13,7 @@ export default function GeneratePayment({ cid, access_token }) {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );

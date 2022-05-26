@@ -25,7 +25,7 @@ export default function EditService({ data }) {
       `${process.env.BACKEND_SERVER}/dashboard/getservices`,
       {
         headers: {
-          "x-access_token": localStorage.getItem("access_token"),
+          "x-access-token": localStorage.getItem("access_token"),
         },
       }
     );

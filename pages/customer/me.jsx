@@ -57,7 +57,7 @@ export default function Me() {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": access_token,
+          "x-access-token": access_token,
         },
       },
     ],
@@ -140,7 +140,7 @@ export default function Me() {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );
@@ -159,7 +159,7 @@ export default function Me() {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );

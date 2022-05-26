@@ -71,7 +71,7 @@ export default function UserDetail({ queryID }) {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": access_token,
+          "x-access-token": access_token,
         },
       },
     ],
@@ -155,7 +155,7 @@ export default function UserDetail({ queryID }) {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );
@@ -174,7 +174,7 @@ export default function UserDetail({ queryID }) {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );
@@ -193,7 +193,7 @@ export default function UserDetail({ queryID }) {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-access_token": access_token,
+            "x-access-token": access_token,
           },
         }
       );

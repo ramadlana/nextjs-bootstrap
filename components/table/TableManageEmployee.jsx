@@ -35,7 +35,7 @@ export default function TableManageEmploye() {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
+          "x-access-token": localStorage.getItem("access_token"),
         },
       }
     )
@@ -65,7 +65,7 @@ export default function TableManageEmploye() {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-access_token": localStorage.getItem("access_token"),
+          "x-access-token": localStorage.getItem("access_token"),
         },
       }
     )
