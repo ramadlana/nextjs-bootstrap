@@ -27,6 +27,7 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function UserDetail({ queryID }) {
+  const [isLoading, setIsloading] = useState(false);
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -85,14 +86,10 @@ export default function UserDetail({ queryID }) {
     return (
       <>
         <div className="container">
-          <button className="btn btn-primary" type="button" disabled>
-            <span
-              className="spinner-border spinner-border-sm mx-3 "
-              role="status"
-              aria-hidden="true"
-            />
-            Loading data...
-          </button>
+          <div className="progress progress-sm">
+            <div className="progress-bar progress-bar-indeterminate"></div>
+          </div>
+          <div className="d-flex justify-content-center m-2">Loading</div>
         </div>
       </>
     );
@@ -293,24 +290,13 @@ export default function UserDetail({ queryID }) {
               button_init_click={handlePaymentHistoryInit}
             ></ModalNoFooter>
 
-            <Modal
-              modal_id="generate-payment"
-              button_name="Generate Payment"
-              modal_title="Generate Payment"
-              modal_content={
-                <GeneratePayment
-                  cid={queryID}
-                  access_token={access_token}
-                ></GeneratePayment>
-              }
-            ></Modal>
-
             <button
               className="btn btn-primary btn-sm mx-1"
-              onClick={() => handlePaySnap(queryID)}
+              onClick={() => handlePaySnap(parseInt(queryID))}
             >
-              Pay
+              {isLoading ? "Memproses Pembayaran.." : "Bayar"}
             </button>
+
             <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
               Back
             </button>

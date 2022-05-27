@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
+import { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import EditUser from "../../components/form/EditUser";
 import { useStore } from "../../state/globalState";
@@ -12,7 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
-import GeneratePayment from "../../components/form/GeneratePayment";
 import PaymentHistory from "../../components/form/PaymentHistory";
 import ModalNoFooter from "../../components/ModalNoFooter";
 import LayoutCustomer from "../../components/LayoutCustomer";
@@ -27,16 +26,53 @@ const fetcherAxios = async (...args) =>
     .catch((err) => (err.response ? err.response : err));
 
 export default function Me() {
-  const { back } = useRouter();
   // Zustand state consume
   const formData = useStore((state) => state.addSubsFormState);
   // backup form data, in case failur, set state to this backup
   const backup_form_data = { ...formData };
   const setFormData = useStore((state) => state.setAddSubsFormState);
-
   // Payment History State
-
   const set_payment_history = useStore((state) => state.set_payment_history);
+
+  const [isLoading, setIsloading] = useState(false);
+
+  // Midtrans Snap
+  useEffect(() => {
+    //change this to the script source you want to load, for example this is snap.js sandbox env
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    //change this according to your client-key
+    const myMidtransClientKey = process.env.MIDTRANS_CLIENT_KEY;
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    // optional if you want to set script attribute
+    // for example snap.js have data-client-key attribute
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
+
+  const handlePaySnap = async (cid) => {
+    try {
+      setIsloading(true);
+      const transaction = await axios.get(
+        `${process.env.BACKEND_SERVER}/dashboard/pay-order-snap?id=${cid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": access_token,
+          },
+        }
+      );
+      window.snap.pay(`${transaction.data.transactionDetail.token}`);
+      setIsloading(false);
+    } catch (error) {
+      return "error generate payment";
+    }
+  };
 
   // Load localstorage key from next JS is unique
   // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
@@ -49,7 +85,6 @@ export default function Me() {
     queryID = decoded.id;
   }
 
-  console.log(queryID);
   // Get data using SWR
   const { data, error } = useSWR(
     [
@@ -70,16 +105,10 @@ export default function Me() {
   if (!data)
     return (
       <>
-        <div className="container">
-          <button className="btn btn-primary" type="button" disabled>
-            <span
-              className="spinner-border spinner-border-sm mx-3 "
-              role="status"
-              aria-hidden="true"
-            />
-            Loading data...
-          </button>
+        <div className="progress progress-sm">
+          <div className="progress-bar progress-bar-indeterminate"></div>
         </div>
+        <div className="d-flex justify-content-center m-2">Loading</div>
       </>
     );
 
@@ -179,7 +208,10 @@ export default function Me() {
 
     return (
       <>
-        <LayoutCustomer></LayoutCustomer>
+        <LayoutCustomer
+          customer_name={data.data.user.username}
+          customer_service={data.data.user.services_id}
+        ></LayoutCustomer>
         <div className="page-wrapper">
           <div className="container-xl"></div>
           <div className="page-body">
@@ -261,17 +293,12 @@ export default function Me() {
                     button_init_click={handlePaymentHistoryInit}
                   ></ModalNoFooter>
 
-                  <Modal
-                    modal_id="generate-payment"
-                    button_name="Generate Payment"
-                    modal_title="Generate Payment"
-                    modal_content={
-                      <GeneratePayment
-                        cid={queryID}
-                        access_token={access_token}
-                      ></GeneratePayment>
-                    }
-                  ></Modal>
+                  <button
+                    className="btn btn-primary btn-sm mx-1"
+                    onClick={() => handlePaySnap(parseInt(queryID))}
+                  >
+                    {isLoading ? "Memproses Pembayaran.." : "Bayar"}
+                  </button>
                 </div>
               </div>
             </div>

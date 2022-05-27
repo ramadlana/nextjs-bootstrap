@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 
-export default function LayoutCustomer({ children }) {
+export default function LayoutCustomer({
+  children,
+  customer_name,
+  customer_service,
+}) {
   const menuNavbar = [
     {
       url: "/user/logout",
@@ -130,44 +134,7 @@ export default function LayoutCustomer({ children }) {
                 <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
               </svg>
             </a>
-            <div className="nav-item dropdown d-none d-md-flex me-3">
-              <a
-                href="#"
-                className="nav-link px-0"
-                data-bs-toggle="dropdown"
-                tabIndex={-1}
-                aria-label="Show notifications"
-              >
-                {/* Download SVG icon from http://tabler-icons.io/i/bell */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon"
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
-                  <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
-                </svg>
-                <span className="badge bg-red" />
-              </a>
-              <div className="dropdown-menu dropdown-menu-end dropdown-menu-card">
-                <div className="card">
-                  <div className="card-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Accusamus ad amet consectetur exercitationem fugiat in ipsa
-                    ipsum, natus odio quidem quod repudiandae sapiente. Amet
-                    debitis et magni maxime necessitatibus ullam.
-                  </div>
-                </div>
-              </div>
-            </div>
+
             <div className="nav-item dropdown">
               <a
                 href="#"
@@ -177,11 +144,13 @@ export default function LayoutCustomer({ children }) {
               >
                 <span
                   className="avatar avatar-sm"
-                  style={{ backgroundImage: "url(./static/avatars/003m.jpg)" }}
+                  style={{ backgroundImage: "url(/static/avatars/003m.jpg)" }}
                 />
                 <div className="d-none d-xl-block ps-2">
-                  <div>Customer Name</div>
-                  <div className="mt-1 small text-muted">Service: 1M</div>
+                  <div>{customer_name || "unnamed"}</div>
+                  <div className="mt-1 small text-muted">
+                    Service: {customer_service || "No Service"}
+                  </div>
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

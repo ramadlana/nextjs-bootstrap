@@ -31,7 +31,7 @@ export default function PayOrder({ query }) {
     try {
       setIsloading(true);
       const transaction = await axios.get(
-        `${process.env.BACKEND_SERVER}/dashboard/pay-order-snap?id=${cid}`,
+        `${process.env.BACKEND_SERVER}/pay-order?id=${cid}`,
         {
           headers: {
             "Content-Type": "application/json",
