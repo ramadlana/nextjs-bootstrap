@@ -1,4 +1,5 @@
-// import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import "../styles/tabler.min.css";
 
 import Layout from "../components/Layout";
