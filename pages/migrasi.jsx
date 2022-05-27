@@ -4,7 +4,9 @@ import dynamic from "next/dynamic";
 import MigrasiSubsForm from "../components/form/MigrasiSubsForm";
 
 // Disable SSR on Auth components so it can call localStorage
-const Auth = dynamic(() => import("../components/AuthWrapper"), { ssr: false });
+const AuthWrapper = dynamic(() => import("../components/AuthWrapper"), {
+  ssr: false,
+});
 
 export default function Protected() {
   // Final display / After Auth Components here
@@ -15,9 +17,11 @@ export default function Protected() {
   );
   //   Auth Component as Wrapper
   return (
-    <Auth
+    <AuthWrapper
+      // Protected Content
       auth_page={auth_page}
+      // Auth URL
       url={`${process.env.BACKEND_SERVER}/dashboard`}
-    ></Auth>
+    ></AuthWrapper>
   );
 }

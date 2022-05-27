@@ -13,7 +13,7 @@ export default function AuthWrapper({ auth_page, url }) {
       .catch((err) => (err.response ? err.response : err));
 
   // SWR to auth to server
-  const { data, error } = useSWR(
+  const { data: swrResponse, error } = useSWR(
     [
       `${url}`,
       {
@@ -30,7 +30,7 @@ export default function AuthWrapper({ auth_page, url }) {
   if (error) return <h1>another error happen: {JSON.stringify(error)}</h1>;
 
   // If data not received yet (loading in fetch)
-  if (!data)
+  if (!swrResponse)
     return (
       <>
         <div className="progress progress-sm">
@@ -41,10 +41,10 @@ export default function AuthWrapper({ auth_page, url }) {
     );
 
   // If return status code 401 Unauthorized
-  if (data.status === 401) router.push("/user/login");
+  if (swrResponse.status === 401) router.push("/user/login");
 
   // If not have status code. for Ex: network error / Others Error
-  if (!data.status)
+  if (!swrResponse.status)
     return (
       <div>
         <div className="container">
@@ -54,6 +54,10 @@ export default function AuthWrapper({ auth_page, url }) {
         </div>
       </div>
     );
+
+  console.log(swrResponse);
+
+  console.log(swrResponse.data);
 
   return auth_page;
 }
