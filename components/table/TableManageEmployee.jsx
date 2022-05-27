@@ -143,10 +143,10 @@ export default function TableManageEmploye() {
   if (!tableRows) {
     return (
       <div className="text-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only"></span>
+        <div className="progress progress-sm">
+          <div className="progress-bar progress-bar-indeterminate"></div>
         </div>
-        <p>Loading Table Data</p>
+        <div className="d-flex justify-content-center m-2">Loading Page</div>
       </div>
     );
   }
@@ -157,10 +157,12 @@ export default function TableManageEmploye() {
     if (isLoading) {
       return (
         <div className="text-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="sr-only"></span>
+          <div className="progress progress-sm">
+            <div className="progress-bar progress-bar-indeterminate"></div>
           </div>
-          <p>Loading Table Data</p>
+          <div className="d-flex justify-content-center m-2">
+            Loading Table Data
+          </div>
         </div>
       );
     }

@@ -1,18 +1,19 @@
-// ******************************************* AUTH START *******************************************
 import axios from "axios";
 import useSWR from "swr";
+
 import { useRouter } from "next/router";
 
 export default function AuthWrapper({ auth_page, url }) {
   const router = useRouter();
 
+  // Axios Fetcher get
   const fetcherAxios = async (...args) =>
     axios
       .get(...args)
       .then((res) => res)
       .catch((err) => (err.response ? err.response : err));
 
-  // SWR to auth to server
+  // SWR call to auth server
   const { data: swrResponse, error } = useSWR(
     [
       `${url}`,
@@ -49,15 +50,11 @@ export default function AuthWrapper({ auth_page, url }) {
       <div>
         <div className="container">
           <h2>
-            Failed {data.message} {data.config.url}
+            Failed {swrResponse.message} {swrResponse.config.url}
           </h2>
         </div>
       </div>
     );
-
-  console.log(swrResponse);
-
-  console.log(swrResponse.data);
 
   return auth_page;
 }

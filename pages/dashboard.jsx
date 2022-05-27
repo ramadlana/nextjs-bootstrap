@@ -78,16 +78,10 @@ export default function Dashboard() {
   if (!data)
     return (
       <>
-        <div className="container">
-          <button className="btn btn-primary" type="button">
-            <span
-              className="spinner-border spinner-border-sm mx-3 "
-              role="status"
-              aria-hidden="true"
-            />
-            Authenticating...
-          </button>
+        <div className="progress progress-sm">
+          <div className="progress-bar progress-bar-indeterminate"></div>
         </div>
+        <div className="d-flex justify-content-center m-2">Loading</div>
       </>
     );
 
