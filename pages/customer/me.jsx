@@ -39,7 +39,7 @@ export default function Me() {
   // Midtrans Snap
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
-    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const midtransScriptUrl = process.env.MIDTRANS_SNAP_JS_URL;
     //change this according to your client-key
     const myMidtransClientKey = process.env.MIDTRANS_CLIENT_KEY;
 

@@ -12,10 +12,9 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import utc from "dayjs/plugin/utc";
 import EditService from "../../components/form/EditService";
-import GeneratePayment from "../../components/form/GeneratePayment";
 import PaymentHistory from "../../components/form/PaymentHistory";
 import ModalNoFooter from "../../components/ModalNoFooter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -30,7 +29,7 @@ export default function UserDetail({ queryID }) {
   const [isLoading, setIsloading] = useState(false);
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
-    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const midtransScriptUrl = process.env.MIDTRANS_SNAP_JS_URL;
     //change this according to your client-key
     const myMidtransClientKey = process.env.MIDTRANS_CLIENT_KEY;
 
