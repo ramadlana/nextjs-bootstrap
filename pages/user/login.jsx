@@ -88,7 +88,6 @@ export default function Login() {
                 <h2 className="card-title text-center mb-4">
                   Login to your account
                 </h2>
-                <p>Username: superadmin Password: superadmin</p>
                 <div className="mb-3">
                   <label className="form-label">username</label>
                   <input
@@ -112,14 +111,7 @@ export default function Login() {
                     />
                   </div>
                 </div>
-                <div className="mb-2">
-                  <label className="form-check">
-                    <input type="checkbox" className="form-check-input" />
-                    <span className="form-check-label">
-                      Remember me on this device
-                    </span>
-                  </label>
-                </div>
+
                 <div className="form-footer">{buttonLoading}</div>
               </div>
               <div className="hr-text">or</div>

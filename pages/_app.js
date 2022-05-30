@@ -13,7 +13,6 @@ function RootApp({ Component, pageProps }) {
     "/customer/me",
     "/404",
     "/payments/pay-order",
-    "/",
   ];
   const router = useRouter();
   return (
