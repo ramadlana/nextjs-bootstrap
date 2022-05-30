@@ -37,7 +37,7 @@ export default function AuthWrapper({ auth_page, url }) {
         <div className="progress progress-sm">
           <div className="progress-bar progress-bar-indeterminate"></div>
         </div>
-        <div className="d-flex justify-content-center m-2">Loading</div>
+        <div className="d-flex justify-content-center m-2">Loading Content</div>
       </>
     );
 
