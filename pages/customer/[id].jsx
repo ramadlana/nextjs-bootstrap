@@ -15,6 +15,7 @@ import EditService from "../../components/form/EditService";
 import PaymentHistory from "../../components/form/PaymentHistory";
 import ModalNoFooter from "../../components/ModalNoFooter";
 import { useEffect, useState } from "react";
+import CashPayment from "../../components/form/CashPayment";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -185,6 +186,7 @@ export default function UserDetail({ queryID }) {
 
   const handlePaySnap = async (cid) => {
     try {
+      setIsloading(true);
       const transaction = await axios.get(
         `${process.env.BACKEND_SERVER}/dashboard/pay-order-snap?id=${cid}`,
         {
@@ -195,8 +197,12 @@ export default function UserDetail({ queryID }) {
         }
       );
       window.snap.pay(`${transaction.data.transactionDetail.token}`);
+      setIsloading(false);
     } catch (error) {
-      return "error generate payment";
+      alert(
+        `error generate payment silahkan coba klik bayar sekali lagi ${error.message}`
+      );
+      setIsloading(false);
     }
   };
 
@@ -290,11 +296,18 @@ export default function UserDetail({ queryID }) {
               button_init_click={handlePaymentHistoryInit}
             ></ModalNoFooter>
 
+            <ModalNoFooter
+              modal_id="paymentoffline"
+              button_name="Bayar Cash"
+              modal_title="Cash Payment"
+              modal_content={<CashPayment data={data.data.user}></CashPayment>}
+            ></ModalNoFooter>
+
             <button
               className="btn btn-primary btn-sm mx-1"
               onClick={() => handlePaySnap(parseInt(queryID))}
             >
-              {isLoading ? "Memproses Pembayaran.." : "Bayar"}
+              {isLoading ? "Memproses Pembayaran.." : "Bayar Online"}
             </button>
 
             <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>

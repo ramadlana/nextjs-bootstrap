@@ -15,30 +15,6 @@ export default function EditUser({ data }) {
     setFormData(copyData);
   }
 
-  async function getServices() {
-    if (selectService) return null;
-    setIsLoading(true);
-    const data = await axios.get(
-      `${process.env.BACKEND_SERVER}/dashboard/getservices`,
-      {
-        headers: {
-          "x-access-token": localStorage.getItem("access_token"),
-        },
-      }
-    );
-    setIsLoading(false);
-    setSelectService(data);
-  }
-
-  function renderSelectValue(data) {
-    if (!selectService) return <option>Loading..</option>;
-    if (isLoading) return <option>Loading..</option>;
-    return data.map((item) => (
-      <option value={item.service_name} key={item.service_name}>
-        {item.service_name}
-      </option>
-    ));
-  }
   return (
     <>
       <form id="modal-form">

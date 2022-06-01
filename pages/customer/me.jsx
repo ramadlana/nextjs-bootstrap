@@ -70,7 +70,10 @@ export default function Me() {
       window.snap.pay(`${transaction.data.transactionDetail.token}`);
       setIsloading(false);
     } catch (error) {
-      return "error generate payment";
+      alert(
+        `error generate payment silahkan coba klik bayar sekali lagi ${error.message}`
+      );
+      setIsloading(false);
     }
   };
 
