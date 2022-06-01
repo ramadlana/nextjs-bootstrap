@@ -24,11 +24,10 @@ export default function AddServiceForm() {
           },
         }
       );
-      console.log(resp);
+
       if (!resp.data.success) toast.error(`${resp.data.message}`);
       if (resp.data.success) toast.success(`${resp.data.message}`);
     } catch (error) {
-      console.log(error);
       toast.error(`${error.message}`);
     }
   }

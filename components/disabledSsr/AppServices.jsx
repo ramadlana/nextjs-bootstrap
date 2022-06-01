@@ -6,32 +6,37 @@ import ChangeServiceForm from "../form/ChangeServiceForm";
 import ModalNoFooter from "../ModalNoFooter";
 import "react-toastify/dist/ReactToastify.css";
 import AddServiceForm from "../form/AddServiceForm";
-import { filter } from "lodash";
+import useSWR from "swr";
 
 export default function AppServices() {
-  const [resp, setResp] = useState();
-  const [err, setErr] = useState();
-
   //   Zustand
   const formState = useStore((state) => state.formState);
   const setFormState = useStore((state) => state.setFormState);
 
-  useEffect(() => {
+  //   SWR
+  const fetcherAxios = async (...args) =>
     axios
-      .get(`${process.env.BACKEND_SERVER}/dashboard/app-services`, {
+      .get(...args)
+      .then((res) => res)
+      .catch((err) => (err.response ? err.response : err));
+
+  // Get data using SWR
+  const { data, error: err } = useSWR(
+    [
+      `${process.env.BACKEND_SERVER}/dashboard/app-services`,
+      {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": localStorage.getItem("access_token"),
         },
-      })
-      .then((resp) => {
-        setFormState({ all: resp, selected: "" });
-        setResp(resp);
-      })
-      .catch((err) => {
-        setErr(err.message);
-      });
-  }, [setFormState]);
+      },
+    ],
+    fetcherAxios
+  );
+
+  useEffect(() => {
+    setFormState({ all: data, selected: "" });
+  }, [data, setFormState]);
 
   //   If Other Network Happen. For Example Network Error
   if (err) {
@@ -39,7 +44,7 @@ export default function AppServices() {
   }
 
   //   If Axios Response not ready yet (loading)
-  if (!resp) {
+  if (!data) {
     return (
       <>
         <div className="text-center">
@@ -53,7 +58,7 @@ export default function AppServices() {
   }
 
   //   If axios response status === 401 (Unauthorized)
-  if (resp.status === 401) {
+  if (data.status === 401) {
     return <p>Unautorized</p>;
   }
 
@@ -95,7 +100,7 @@ export default function AppServices() {
   //   );
 
   //   If resp status === 200 or 201
-  if (resp.status === 200) {
+  if (data.status === 200) {
     return (
       <>
         <ToastContainer></ToastContainer>
@@ -122,7 +127,7 @@ export default function AppServices() {
                   </tr>
                 </thead>
                 <tbody>
-                  {resp.data.message.map((data) => {
+                  {data.data.message.map((data) => {
                     return (
                       <tr key={data.service_name}>
                         <td style={{ cursor: "pointer" }}>
