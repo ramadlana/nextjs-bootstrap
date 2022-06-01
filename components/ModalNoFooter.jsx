@@ -5,13 +5,16 @@ export default function ModalNoFooter({
   button_init_click,
   modal_content,
   modal_title,
+  button_className,
 }) {
   return (
     <>
       {/* Button trigger modal */}
       <button
         type="button"
-        className="btn btn-primary btn-sm mx-1"
+        className={
+          button_className ? button_className : "btn btn-primary btn-sm mx-1"
+        }
         data-bs-toggle="modal"
         data-bs-target={"#" + modal_id}
         onClick={button_init_click}

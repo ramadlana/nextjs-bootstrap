@@ -46,6 +46,7 @@ export default function AddServiceForm() {
         <InputForm
           id="service_ammount"
           label="Service Ammount"
+          type="number"
           value={formState?.service_ammount}
           onChange={(element) => inputHandler(element.currentTarget)}
         ></InputForm>
@@ -61,6 +62,7 @@ export default function AddServiceForm() {
         <InputForm
           id="installation_fee"
           label="Installation fee"
+          type="number"
           value={formState?.installation_fee}
           onChange={(element) => inputHandler(element.currentTarget)}
         ></InputForm>

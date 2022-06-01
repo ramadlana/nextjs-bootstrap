@@ -63,33 +63,6 @@ export default function Layout({ children }) {
         </>
       ),
     },
-    {
-      url: "/user/logout",
-      menuTitle: "Logout",
-      icon: (
-        <>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-logout"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <desc>
-              Download more icon variants from https://tabler-icons.io/i/logout
-            </desc>
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
-            <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
-          </svg>
-        </>
-      ),
-    },
   ];
 
   const menuNavbarDropdown1 = [
@@ -186,35 +159,37 @@ export default function Layout({ children }) {
                     </svg>
                     Contact CS
                   </a>
-                  <a
-                    href="https://google.com"
-                    className="btn"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {/* Download SVG icon from http://tabler-icons.io/i/heart */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon icon-tabler icon-tabler-mail"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <desc>
-                        Download more icon variants from
-                        https://tabler-icons.io/i/mail
-                      </desc>
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                      <polyline points="3 7 12 13 21 7"></polyline>
-                    </svg>
-                    Ajukan Complain
-                  </a>
+
+                  <Link href="/user/logout">
+                    <a className="btn" target="_blank" rel="noreferrer">
+                      {/* Download SVG icon from http://tabler-icons.io/i/heart */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="icon icon-tabler icon-tabler-logout"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <desc>
+                          Download more icon variants from
+                          https://tabler-icons.io/i/logout
+                        </desc>
+                        <path
+                          stroke="none"
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        ></path>
+                        <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                        <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+                      </svg>
+                      Logout
+                    </a>
+                  </Link>
                 </div>
               </div>
               <a
