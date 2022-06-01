@@ -5,36 +5,6 @@ import Script from "next/script";
 export default function Layout({ children }) {
   const menuNavbar = [
     {
-      url: "/dashboard",
-      menuTitle: "Dashboard",
-      icon: (
-        <>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-layout-dashboard"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <desc>
-              Download more icon variants from
-              https://tabler-icons.io/i/layout-dashboard
-            </desc>
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 4h6v8h-6z" />
-            <path d="M4 16h6v4h-6z" />
-            <path d="M14 12h6v8h-6z" />
-            <path d="M14 4h6v4h-6z" />
-          </svg>
-        </>
-      ),
-    },
-    {
       url: "/manageemploye",
       menuTitle: "Manage Employee",
       icon: (
@@ -85,24 +55,30 @@ export default function Layout({ children }) {
 
   const homeIcon = (
     <>
-      {/* Download SVG icon from http://tabler-icons.io/i/home */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="icon"
-        width={24}
-        height={24}
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <polyline points="5 12 3 12 12 3 21 12 19 12" />
-        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-      </svg>
+      <>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="icon icon-tabler icon-tabler-layout-dashboard"
+          width={24}
+          height={24}
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <desc>
+            Download more icon variants from
+            https://tabler-icons.io/i/layout-dashboard
+          </desc>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 4h6v8h-6z" />
+          <path d="M4 16h6v4h-6z" />
+          <path d="M14 12h6v8h-6z" />
+          <path d="M14 4h6v4h-6z" />
+        </svg>
+      </>
     </>
   );
   return (
