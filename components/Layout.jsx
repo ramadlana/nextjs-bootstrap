@@ -97,6 +97,10 @@ export default function Layout({ children }) {
       url: "/migrasi",
       menuTitle: "Migrasi Customer",
     },
+    {
+      url: "/services",
+      menuTitle: "Manage Services",
+    },
   ];
 
   const menuNavbarDropdown2 = [
@@ -273,14 +277,12 @@ export default function Layout({ children }) {
                   <span
                     className="avatar avatar-sm"
                     style={{
-                      backgroundImage: "url(/static/avatars/rama.jpg)",
+                      backgroundImage: "url(/static/avatars/rama.png)",
                     }}
                   />
                   <div className="d-none d-xl-block ps-2">
-                    <div>Hidayah Ramadlana</div>
-                    <div className="mt-1 small text-muted">
-                      System Architect
-                    </div>
+                    <div>Admin</div>
+                    <div className="mt-1 small text-muted">Administrator</div>
                   </div>
                 </a>
                 <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

@@ -1,5 +1,7 @@
 import create from "zustand";
 
+// Save as naming for example globalState.js or customerState.js
+
 // WARNING
 // set must call inside function otherwise loop occur, because its re render DOM when changes
 
@@ -53,6 +55,9 @@ const useStore = create((set) => ({
   // Payment History
   payment_history: [],
   set_payment_history: (data) => set({ payment_history: data }),
+
+  formState: {},
+  setFormState: (data) => set({ formState: data }),
 }));
 
 // You can create another store useCustomStore here, and dont forget to export it

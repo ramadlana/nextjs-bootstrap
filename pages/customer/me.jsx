@@ -308,11 +308,3 @@ export default function Me() {
     );
   }
 }
-
-// Get context. get req.query
-// export async function getServerSideProps(context) {
-
-//   const data = axios.post;
-//   // Pass data to the page via props
-//   return { props: { queryID: queryID } };
-// }

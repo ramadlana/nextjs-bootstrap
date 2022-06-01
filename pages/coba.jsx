@@ -1,19 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import { useStore } from "../../state/globalState";
-import ChangeServiceForm from "../form/ChangeServiceForm";
-import ModalNoFooter from "../ModalNoFooter";
-import "react-toastify/dist/ReactToastify.css";
-import AddServiceForm from "../form/AddServiceForm";
+import { useEffect, useState, useRef } from "react";
+import Modal from "../components/modal";
+import ModalNoFooter from "../components/ModalNoFooter";
 
-export default function AppServices() {
+export default function AppServices2() {
+  const inputRef = useRef();
   const [resp, setResp] = useState();
   const [err, setErr] = useState();
-
-  //   Zustand
-  const formState = useStore((state) => state.formState);
-  const setFormState = useStore((state) => state.setFormState);
+  const [togleForm, setTogleForm] = useState(false);
 
   useEffect(() => {
     axios
@@ -24,13 +18,12 @@ export default function AppServices() {
         },
       })
       .then((resp) => {
-        setFormState({ all: resp, selected: "" });
         setResp(resp);
       })
       .catch((err) => {
         setErr(err.message);
       });
-  }, [setFormState]);
+  }, []);
 
   //   If Other Network Happen. For Example Network Error
   if (err) {
@@ -57,29 +50,36 @@ export default function AppServices() {
   }
 
   function handleClick(value) {
-    const copyFormState = { ...formState };
+    const selected_data = resp.data.message.find((p) => {
+      return p.service_name === value;
+    });
 
-    const selectedData = copyFormState.all.data.message.find(
-      (f) => f.service_name === value
+    setSelectedData(selected_data);
+
+    setFramedPool(
+      selected_data.radgroupreply.find((f) => f.attribute === "Framed-Pool")
     );
-    copyFormState.selected = selectedData;
-    setFormState(copyFormState);
-    console.log(copyFormState);
+    setMikrotikRateLimit(
+      selected_data.radgroupreply.find(
+        (f) => f.attribute === "Mikrotik-Rate-Limit"
+      )
+    );
+
+    setTogleForm(!togleForm);
+    inputRef.current.focus();
   }
 
   //   If resp status === 200 or 201
   if (resp.status === 200) {
     return (
       <>
-        <ToastContainer></ToastContainer>
-
         <ModalNoFooter
-          button_name="Add Service Profile"
-          modal_content={<AddServiceForm></AddServiceForm>}
-          modal_title="add service profile"
-          modal_id="service_add"
+          button_name="a"
+          modal_content={<>halo</>}
+          modal_id="ida"
+          key={"ida"}
+          modal_title="test"
         ></ModalNoFooter>
-
         <div className="card">
           <div className="table-responsive">
             <table className="table table-vcenter card-table">
@@ -96,19 +96,7 @@ export default function AppServices() {
                 {resp.data.message.map((data) => {
                   return (
                     <tr key={data.service_name}>
-                      <td style={{ cursor: "pointer" }}>
-                        <ModalNoFooter
-                          button_name={data.service_name}
-                          modal_id="ida"
-                          modal_title={data.service_name}
-                          button_init_click={() => {
-                            handleClick(data.service_name);
-                          }}
-                          modal_content={
-                            <ChangeServiceForm></ChangeServiceForm>
-                          }
-                        ></ModalNoFooter>
-                      </td>
+                      <td style={{ cursor: "pointer" }}></td>
                       <td>{data.service_ammount}</td>
                       <td>{data.service_period}</td>
                       <td>{data.installation_fee}</td>
