@@ -45,7 +45,7 @@ export default function EditUser({ data }) {
         <div className="row">
           <div className="col-6">
             <label htmlFor="username" className="form-label">
-              Username
+              Username Customer portal & PPPoE
             </label>
             <input
               type="text"
@@ -54,6 +54,17 @@ export default function EditUser({ data }) {
               value={data.username}
               onChange={(element) => inputHandler(element.currentTarget)}
               readOnly
+            />
+
+            <label htmlFor="password" className="form-label">
+              password Customer portal & PPPoE
+            </label>
+            <input
+              type="text"
+              className="form-control mb-3"
+              id="value"
+              value={data.value}
+              onChange={(element) => inputHandler(element.currentTarget)}
             />
 
             <label htmlFor="first_name" className="form-label">

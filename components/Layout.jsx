@@ -79,7 +79,7 @@ export default function Layout({ children }) {
   const menuNavbarDropdown2 = [
     {
       url: "/",
-      menuTitle: "#2",
+      menuTitle: "About",
     },
   ];
 

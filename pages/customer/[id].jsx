@@ -139,6 +139,7 @@ export default function UserDetail({ queryID }) {
       address: formData.address,
       first_name: formData.first_name,
       last_name: formData.last_name,
+      value: formData.value,
       phone: formData.phone,
       services_id: formData.services_id,
       isChangeService: false || formData.isChangeService,
