@@ -33,7 +33,7 @@ export default function Login() {
       localStorage.setItem("access_token", resp.data.access_token);
       toast.success(resp.data.message);
       // Redirecr to Dashboard
-      Router.replace("/dashboard");
+      Router.replace("/");
     } catch (err) {
       setLoading(false);
       toast.error(
@@ -114,7 +114,7 @@ export default function Login() {
 
                 <div className="form-footer">{buttonLoading}</div>
               </div>
-              <div className="hr-text">or</div>
+              {/* <div className="hr-text">or</div>
               <div className="card-body">
                 <button
                   className="btn btn-primary w-100"
@@ -122,7 +122,7 @@ export default function Login() {
                 >
                   Register
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
