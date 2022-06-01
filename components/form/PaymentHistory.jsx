@@ -113,7 +113,7 @@ export default function PaymentHistory({ data }) {
         </table>
       </div>
 
-      <h2>Pembayaran Pending</h2>
+      <h2 className="mt-3">Pembayaran Pending</h2>
       <div className="table-responsive">
         <table className="table table-vcenter">
           <thead>
