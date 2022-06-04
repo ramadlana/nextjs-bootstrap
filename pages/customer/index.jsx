@@ -65,18 +65,18 @@ export default function Login() {
         <div className="page page-center">
           <div className="container-tight py-4">
             <div className="text-center mb-4">
-              <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-0">
+              <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href=".">
                   <Image
-                    src="/static/logo-small.svg"
-                    width={110}
-                    height={32}
-                    alt="Tabler"
+                    src="/static/logo.png"
+                    width={280}
+                    height={150}
+                    alt="Jayanet"
                     className="navbar-brand-image"
                   />
                 </a>
-                <span className="">Customer Portal</span>
               </h1>
+              <h1>JAYANET CUSTOMER PORTAL</h1>
             </div>
             <form
               className="card card-md"
@@ -111,24 +111,8 @@ export default function Login() {
                     />
                   </div>
                 </div>
-                <div className="mb-2">
-                  <label className="form-check">
-                    <input type="checkbox" className="form-check-input" />
-                    <span className="form-check-label">
-                      Remember me on this device
-                    </span>
-                  </label>
-                </div>
+
                 <div className="form-footer">{buttonLoading}</div>
-              </div>
-              <div className="hr-text">or</div>
-              <div className="card-body">
-                <button
-                  className="btn btn-primary w-100"
-                  onClick={() => Router.push("/user/register")}
-                >
-                  Register
-                </button>
               </div>
             </form>
           </div>

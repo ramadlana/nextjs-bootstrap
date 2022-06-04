@@ -206,6 +206,26 @@ export default function UserDetail({ queryID }) {
     }
   };
 
+  const handleClickDelete = async (id) => {
+    console.log(id);
+    try {
+      const resp = await axios.delete(
+        `${process.env.BACKEND_SERVER}/dashboard/radiususer/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem("access_token"),
+          },
+        }
+      );
+      if (!resp.data.success) toast.error(`${resp.data.message}`);
+      if (resp.data.success) toast.success(`${resp.data.message}`);
+    } catch (error) {
+      toast.error(`${error.message}`);
+    }
+    //
+  };
+
   // If return status code 200 Authorized
   if (data.status === 200) {
     const date_str = dayjs(data.data.user.expirydate).format(
@@ -313,6 +333,26 @@ export default function UserDetail({ queryID }) {
             <button className="btn btn-info btn-sm mx-1" onClick={() => back()}>
               Back
             </button>
+
+            <ModalNoFooter
+              modal_id="deletemodal"
+              button_className="btn btn-danger btn-sm mx-1"
+              button_name="Delete User"
+              modal_content={
+                <>
+                  <p>
+                    Apakah anda yakin akan menghapus user{" "}
+                    {data.data.user.username}
+                  </p>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleClickDelete(data.data.user.id)}
+                  >
+                    Ya Hapus
+                  </button>
+                </>
+              }
+            ></ModalNoFooter>
           </div>
         </div>
       </>

@@ -15,6 +15,7 @@ import utc from "dayjs/plugin/utc";
 import PaymentHistory from "../../components/form/PaymentHistory";
 import ModalNoFooter from "../../components/ModalNoFooter";
 import LayoutCustomer from "../../components/LayoutCustomer";
+import EditUserForCustomer from "../../components/form/EditUserForCustomer";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -77,15 +78,21 @@ export default function Me() {
     }
   };
 
+  // if (!access_token) return (window.location.href = "/customer");
+
   // Load localstorage key from next JS is unique
   // Because is server rendered component in first , to localstorage is not available, because localstorage is browser only
   let access_token;
   let queryID;
-  if (typeof window !== "undefined") {
-    // Perform localStorage action
-    access_token = localStorage.getItem("access_token");
-    const decoded = jwt_decode(access_token);
-    queryID = decoded.id;
+  try {
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+      access_token = localStorage.getItem("access_token");
+      const decoded = jwt_decode(access_token);
+      queryID = decoded.id;
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   // Get data using SWR
@@ -101,6 +108,8 @@ export default function Me() {
     ],
     fetcherAxios
   );
+
+  console.log(error);
 
   // setFormData(data?.data?.user);
 
@@ -124,12 +133,13 @@ export default function Me() {
       <>
         <div className="container">
           <div className="alert alert-warning" role="alert">
-            You dont have permission to access this page: {data.data.message}
+            Anda harus login untuk melakukan akses halaman ini /{" "}
+            {data.data.message}
           </div>
 
           <button
             className="btn btn-primary"
-            onClick={() => (window.location.href = "/user/login")}
+            onClick={() => (window.location.href = "/customer")}
           >
             Sign in to Access
           </button>
@@ -230,8 +240,12 @@ export default function Me() {
                     <thead></thead>
                     <tbody>
                       <tr>
-                        <td>Username</td>
+                        <td>Username PPPoE & Portal Customer</td>
                         <td>{data.data.user.username} </td>
+                      </tr>
+                      <tr>
+                        <td>Password PPPoE & Portal Customer</td>
+                        <td>{data.data.user.value} </td>
                       </tr>
                       <tr>
                         <td>First Name</td>
@@ -284,7 +298,11 @@ export default function Me() {
                     modal_id="edit-data"
                     button_name="Edit Data"
                     modal_title="Edit Data"
-                    modal_content={<EditUser data={data.data.user}></EditUser>}
+                    modal_content={
+                      <EditUserForCustomer
+                        data={data.data.user}
+                      ></EditUserForCustomer>
+                    }
                     onClickAction={() => handleSubmitEditUser()}
                   ></Modal>
 

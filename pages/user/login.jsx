@@ -5,6 +5,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -68,15 +69,15 @@ export default function Login() {
               <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                 <a href=".">
                   <Image
-                    src="/static/logo-small.svg"
-                    width={110}
-                    height={32}
-                    alt="Tabler"
+                    src="/static/logo.png"
+                    width={280}
+                    height={150}
+                    alt="Jayanet"
                     className="navbar-brand-image"
                   />
                 </a>
-                <span className="ms-2">Net Manager v1.0</span>
               </h1>
+              <h1>JAYANET ADMIN PORTAL</h1>
             </div>
             <form
               className="card card-md"
@@ -113,6 +114,16 @@ export default function Login() {
                 </div>
 
                 <div className="form-footer">{buttonLoading}</div>
+                <div className="alert alert-success mt-3" role="alert">
+                  <h4 className="alert-title">Halo..</h4>
+                  <div className="text-muted">
+                    Halaman ini khusus admin Jayanet, untuk login CUSTOMER
+                    silahkan klik{" "}
+                    <Link href="/customer">
+                      <a>disini</a>
+                    </Link>
+                  </div>
+                </div>
               </div>
               {/* <div className="hr-text">or</div>
               <div className="card-body">
