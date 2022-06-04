@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
 
@@ -46,7 +46,7 @@ export default function UserDetail({ queryID }) {
     };
   }, []);
 
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   // Zustand state consume
   const formData = useStore((state) => state.addSubsFormState);
   // backup form data, in case failur, set state to this backup
@@ -218,8 +218,9 @@ export default function UserDetail({ queryID }) {
           },
         }
       );
-      if (!resp.data.success) toast.error(`${resp.data.message}`);
+      if (!resp.data.success) return toast.error(`${resp.data.message}`);
       if (resp.data.success) toast.success(`${resp.data.message}`);
+      push("/");
     } catch (error) {
       toast.error(`${error.message}`);
     }
@@ -346,6 +347,7 @@ export default function UserDetail({ queryID }) {
                   </p>
                   <button
                     className="btn btn-danger"
+                    data-bs-dismiss="modal"
                     onClick={() => handleClickDelete(data.data.user.id)}
                   >
                     Ya Hapus
